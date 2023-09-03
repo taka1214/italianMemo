@@ -30,10 +30,10 @@ class PostController extends Controller
             'memo' => 'nullable',
         ]);
 
-        // ファイルを保存
+        // S3にファイルを保存
         $voiceScriptPath = null;
         if ($request->hasFile('voice_script')) {
-            $voiceScriptPath = $request->file('voice_script')->store('voice_scripts', 'public');
+            $voiceScriptPath = $request->file('voice_script')->store('voice_scripts', 's3'); // 's3'を指定して保存先を変更
         }
 
         Item::create([
@@ -97,15 +97,15 @@ class PostController extends Controller
             'memo' => 'nullable',
         ]);
 
-        // Check if a new audio file has been uploaded
+        // 新しい音声ファイルがアップロードされたかを確認
         if ($request->hasFile('voice_script')) {
-            // Delete the old audio file if exists
+            // 既存の音声ファイルが存在する場合は削除
             if ($post->voice_script) {
-                Storage::disk('public')->delete($post->voice_script);
+                Storage::disk('s3')->delete($post->voice_script); // 's3'を指定して削除対象を指定
             }
 
-            // Store the new audio file and get its path
-            $voiceScriptPath = $request->file('voice_script')->store('voice_scripts', 'public');
+            // 新しい音声ファイルを保存し、そのパスを取得
+            $voiceScriptPath = $request->file('voice_script')->store('voice_scripts', 's3'); // 's3'を指定して保存先を変更
             $post->voice_script = $voiceScriptPath;
         }
 
@@ -116,7 +116,6 @@ class PostController extends Controller
 
         return redirect()->route('post.index')->with('success', 'Post updated successfully.');
     }
-
 
     public function destroy($id)
     {

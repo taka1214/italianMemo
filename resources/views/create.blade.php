@@ -22,6 +22,14 @@
           <label for="voice_script" class="text-gray-600">音声ファイル</label>
           <input type="file" id="voice_script" name="voice_script" accept=".mp3,.wav,.ogg">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
+
+          @if(isset($post) && $post->voice_script)
+          <p>現在の音声:</p>
+          <audio controls>
+            <source src="{{ Storage::disk('s3')->url($post->voice_script) }}" type="audio/mp3">
+            お使いのブラウザは音声タグをサポートしていません。
+          </audio>
+          @endif
         </div>
         <div class="relative">
           <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />
@@ -37,13 +45,13 @@
     </form>
     @if ($errors->any())
     <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
     </div>
-@endif
+    @endif
   </div>
 </x-app-layout>
 

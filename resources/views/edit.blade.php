@@ -25,7 +25,7 @@
           @if($post->voice_script)
           <p>現在の音声:
             <audio controls>
-              <source src="{{ asset('storage/' . $post->voice_script) }}" type="audio/mp3">
+              <source src="{{ Storage::disk('s3')->url($post->voice_script) }}" type="audio/mp3">
               お使いのブラウザは音声タグをサポートしていません。
             </audio>
           </p>

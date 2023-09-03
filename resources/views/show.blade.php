@@ -12,14 +12,14 @@
         <div>
           <p>音声再生</p>
           <audio controls>
-            <source src="{{ asset('storage/' . $post->voice_script) }}" type="audio/mp3">
+            <source src="{{ Storage::disk('s3')->url($post->voice_script) }}" type="audio/mp3">
             お使いのブラウザは音声タグをサポートしていません。
           </audio>
         </div>
         <div>
           <div class="font-semibold" onclick="toggleVisibility('italianContent', 'italianToggleIcon')">audio script<span id="italianToggleIcon">▼</span></div>
           <div id="italianContent" style="display:none;">
-          &nbsp;&nbsp;{{ $post->italian }}
+            &nbsp;&nbsp;{{ $post->italian }}
             @if(!empty($post->memo))
             <span id="italianMemoNote" style="display:block;">&nbsp;&nbsp;※メモあり</span>
             @endif
