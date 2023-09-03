@@ -120,8 +120,15 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Item::find($id);
-        // 投稿を削除
+
+        // S3から音声ファイルを削除
+        if ($post->voice_script) {
+            Storage::disk('s3')->delete($post->voice_script);
+        }
+
+        // データベースから投稿を削除
         $post->delete();
+
         return redirect()
             ->route('post.index')
             ->with([
