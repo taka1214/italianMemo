@@ -26,7 +26,7 @@ class PostController extends Controller
         $request->validate([
             'italian' => 'required',
             'japanese' => 'required',
-            'voice_script' => 'file|mimes:mp3,wav,ogg|max:5000', // 5MB以下のmp3, wav, ogg ファイルを許可
+            'voice_script' => 'required|file|mimes:mp3,wav,ogg|max:8000', // 5MB以下のmp3, wav, ogg ファイルを許可
             'memo' => 'nullable',
         ]);
 
