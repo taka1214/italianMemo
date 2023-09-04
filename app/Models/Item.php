@@ -34,7 +34,7 @@ class Item extends Model
     public function uploadVoiceScriptToS3($voice_script_file)
     {
         $s3Client = $this->getS3Client();
-
+        dd($voice_script_file);
         try {
             $result = $s3Client->putObject([
                 'Bucket' => env('AWS_BUCKET'),
