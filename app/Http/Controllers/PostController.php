@@ -33,7 +33,7 @@ class PostController extends Controller
         // S3にファイルを保存
         $voiceScriptPath = null;
         if ($request->hasFile('voice_script')) {
-            $voiceScriptPath = $this->uploadVoiceScriptToS3($request->file('voice_script'));
+            $voiceScriptPath = $request->file('voice_script')->store('voice_scripts', 's3'); // 's3'を指定して保存先を変更
         }
 
         Item::create([
