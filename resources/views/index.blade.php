@@ -4,7 +4,7 @@
       自分で作るイタリア語帳
     </h2>
   </x-slot>
-  <div class="py-12">
+  <div style="padding:10px">
     <button type="button" onclick="location.href='{{ route('post.create') }}'">新規登録</button>
     @if(session('message'))
     <div id="postMessage">
@@ -13,8 +13,8 @@
     @endif
     <section class="text-gray-600 body-font">
       <div class="container px-5 py-24 mx-auto">
-        <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-        <button type="button" onclick="location.href='{{ route('post.shuffle') }}'">伊→日</button>
+        <div class="lg:w-2/3 w-full mx-auto overflow-auto" style="padding:10px">
+          <button type="button" onclick="location.href='{{ route('post.shuffle') }}'">伊→日</button>
           <table class="table-auto w-full text-left whitespace-no-wrap">
             <thead>
               <tr>
@@ -23,12 +23,12 @@
               </tr>
             </thead>
             <tbody>
-            @foreach($posts as $post)
+              @foreach($posts as $post)
               <tr onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'">
-                <td class="px-4 py-3">{{ $post->italian }}</td>
-                <td class="px-4 py-3">{{ $post->japanese }}</td>
+                <td style="padding-top: 10px;">{{ Str::limit($post->italian, 40, '…' ) }}</td>
+                <td style="padding-top: 10px;">{{ Str::limit($post->japanese, 40, '…' ) }}</td>
               </tr>
-            @endforeach
+              @endforeach
             </tbody>
           </table>
         </div>

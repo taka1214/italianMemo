@@ -4,7 +4,7 @@
       イタリア語帳の編集
     </h2>
   </x-slot>
-  <div class="py-12">
+  <div style="padding-left: 5px;">
     <form method="post" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
       @csrf
       @method('PUT')
@@ -50,14 +50,14 @@
           <x-input-error :messages="$errors->get('memo')" class="mt-2" />
         </div>
       </div>
-      <button type="submit">更新</button>
+      <button type="submit" style="padding-top: 10px;">更新</button>
     </form>
-    <form id="deleteForm" action="{{ route('post.destroy', $post->id) }}" method="POST">
+    <form id="deleteForm" style="padding-top: 10px;" action="{{ route('post.destroy', $post->id) }}" method="POST">
       @csrf
       @method('DELETE')
       <button type="submit" onclick="return deletePost();" style="background-color: red; color: white;">削除</button>
     </form>
-    <button type="button" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
+    <button type="button" style="padding-top: 10px;" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
   </div>
 </x-app-layout>
 

@@ -4,7 +4,7 @@
       自分で作るイタリア語帳
     </h2>
   </x-slot>
-  <div>
+  <div style="padding-left: 5px;">
     <form method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
       @csrf
       <div class="p-2 w-full">
@@ -22,7 +22,6 @@
           <label for="voice_script" class="text-gray-600">音声ファイル</label>
           <input type="file" id="voice_script" name="voice_script" accept=".mp3,.wav,.ogg">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
-
           @if(isset($post) && $post->voice_script)
           <p>現在の音声:</p>
           <audio controls>
@@ -38,9 +37,9 @@
           <x-input-error :messages="$errors->get('memo')" class="mt-2" />
         </div>
       </div>
-      <div>
+      <div style="padding-top: 10px;">
         <button type="submit">登録</button><br>
-        <button type="button" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
+        <button type="button" style="padding-top: 5px;" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
       </div>
     </form>
     @if ($errors->any())
