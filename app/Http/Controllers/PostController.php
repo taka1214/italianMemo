@@ -23,9 +23,7 @@ class PostController extends Controller
     }
 
     public function store(Request $request)
-    {
-        dd($request->file('voice_script')->getMimeType());
-        
+    {   
         $request->validate([
             'italian' => 'required',
             'japanese' => 'required',
