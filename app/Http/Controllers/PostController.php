@@ -24,15 +24,14 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->file('voice_script')->getMimeType());
+        
         $request->validate([
             'italian' => 'required',
             'japanese' => 'required',
             'voice_script' => 'required|file|mimes:mp3,wav,ogg,audio/x-m4a,audio/mp4|max:8000',
             'memo' => 'nullable',
         ]);
-
-        \Log::info($request->file('voice_script')->getMimeType());
-
 
         // S3にファイルを保存
         $voiceScriptPath = null;
