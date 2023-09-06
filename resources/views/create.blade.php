@@ -4,21 +4,21 @@
       自分で作るイタリア語帳
     </h2>
   </x-slot>
-  <div style="padding-left: 5px;">
+  <div style="padding-left: 5px; padding-top:10px;">
     <form method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
       @csrf
       <div class="p-2 w-full">
-        <div class="relative">
-          <label for="italian" class="text-gray-600">イタリア語</label>
-          <textarea id="italian" style="padding: 5px;" name="italian" rows="5" required>{{ old('italian') }}</textarea>
+        <div>
+          <!-- <label for="italian" class="text-gray-600">イタリア語</label> -->
+          <textarea id="italian" style="padding: 5px;" name="italian" rows="5" required placeholder="Italiano">{{ old('italian') }}</textarea>
           <x-input-error :messages="$errors->get('italian')" class="mt-2" />
         </div>
-        <div class="relative">
-          <label for="japanese" class="text-gray-600">日本語</label>
-          <textarea id="japanese" style="padding: 5px;" name="japanese" rows="5" required>{{ old('japanese') }}</textarea>
+        <div>
+          <!-- <label for="japanese" class="text-gray-600">日本語</label> -->
+          <textarea id="japanese" style="padding: 5px;" name="japanese" rows="5" required placeholder="日本語">{{ old('japanese') }}</textarea>
           <x-input-error :messages="$errors->get('japanese')" class="mt-2" />
         </div>
-        <div class="relative">
+        <div>
           <label for="voice_script" class="text-gray-600">音声ファイル</label>
           <input type="file" id="voice_script" name="voice_script" accept=".mp3,.wav,.ogg">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
@@ -30,9 +30,11 @@
           </audio>
           @endif
         </div>
-        <div class="relative">
-          <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />
-          <label for="memo" class="text-gray-600 mt-4">メモ</label>
+        <div class="mt-4">
+          <div>
+            <label for="memo" class="text-gray-600 m1-2">メモ</label>
+            <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />
+          </div>
           <textarea id="memo" style="padding: 5px;" name="memo" rows="5" required disabled>{{ old('memo') }}</textarea>
           <x-input-error :messages="$errors->get('memo')" class="mt-2" />
         </div>

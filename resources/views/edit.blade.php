@@ -4,7 +4,7 @@
       イタリア語帳の編集
     </h2>
   </x-slot>
-  <div style="padding-left: 5px;">
+  <div style="padding-left: 5px; padding-top:10px;">
     <form method="post" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
       @csrf
       @method('PUT')
