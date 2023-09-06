@@ -29,8 +29,8 @@
                 <td style="padding-top: 10px;">{{ Str::limit($post->italian, 40, '…' ) }}</td>
                 <td style="padding-top: 10px;">{{ Str::limit($post->japanese, 40, '…' ) }}</td>
                 <td style="padding-top: 10px;">
-                  @if($post->voice_script) <!-- ここで確認 -->
-                  <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}'); event.stopPropagation();">Play</button>
+                  @if($post->voice_script)
+                  <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">Play</button>
                   @else
                   <span>音声なし</span>
                   @endif
@@ -53,8 +53,25 @@
     }, 3000); // 3000ミリ秒後（3秒後）に実行
   }
 
-  function playVoiceScript(url) {
-    let audio = new Audio(url);
+  let currentAudio = null; // 現在再生中のオーディオオブジェクトを保持するための変数
+
+  function playVoiceScript(url, buttonElement) {
+    if (currentAudio) {
+      currentAudio.pause(); // すでに再生中の音声があれば、停止
+      currentAudio = null;
+      buttonElement.textContent = "Play";
+      return;
+    }
+
+    const audio = new Audio(url);
     audio.play();
+
+    audio.onended = function() {
+      buttonElement.textContent = "Play";
+      currentAudio = null;
+    };
+
+    currentAudio = audio;
+    buttonElement.textContent = "Stop";
   }
 </script>
