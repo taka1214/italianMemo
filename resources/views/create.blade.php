@@ -10,12 +10,12 @@
       <div class="p-2 w-full">
         <div class="relative">
           <label for="italian" class="text-gray-600">イタリア語</label>
-          <textarea id="italian" name="italian" rows="5" required>{{ old('italian') }}</textarea>
+          <textarea id="italian" style="padding: 5px;" name="italian" rows="5" required>{{ old('italian') }}</textarea>
           <x-input-error :messages="$errors->get('italian')" class="mt-2" />
         </div>
         <div class="relative">
           <label for="japanese" class="text-gray-600">日本語</label>
-          <textarea id="japanese" name="japanese" rows="5" required>{{ old('japanese') }}</textarea>
+          <textarea id="japanese" style="padding: 5px;" name="japanese" rows="5" required>{{ old('japanese') }}</textarea>
           <x-input-error :messages="$errors->get('japanese')" class="mt-2" />
         </div>
         <div class="relative">
@@ -33,7 +33,7 @@
         <div class="relative">
           <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />
           <label for="memo" class="text-gray-600 mt-4">メモ</label>
-          <textarea id="memo" name="memo" rows="5" required disabled>{{ old('memo') }}</textarea>
+          <textarea id="memo" style="padding: 5px;" name="memo" rows="5" required disabled>{{ old('memo') }}</textarea>
           <x-input-error :messages="$errors->get('memo')" class="mt-2" />
         </div>
       </div>

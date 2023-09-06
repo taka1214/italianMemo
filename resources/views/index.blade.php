@@ -4,7 +4,7 @@
       自分で作るイタリア語帳
     </h2>
   </x-slot>
-  <div style="padding:10px">
+  <div style="padding:10px" class="text-gray-600">
     <button type="button" onclick="location.href='{{ route('post.create') }}'">新規登録</button>
     @if(session('message'))
     <div id="postMessage">
@@ -12,33 +12,33 @@
     </div>
     @endif
     <section class="text-gray-600 body-font">
-      <div class="container px-5 py-24 mx-auto">
-        <div class="lg:w-2/3 w-full mx-auto overflow-auto" style="padding:10px">
-          <button type="button" onclick="location.href='{{ route('post.shuffle') }}'">伊→日</button>
-          <table class="table-auto w-full text-left whitespace-no-wrap">
-            <thead>
-              <tr>
-                <th>イタリア語</th>
-                <th>日本語</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($posts as $post)
-              <tr onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'">
-                <td style="padding-top: 10px;">{{ Str::limit($post->italian, 40, '…' ) }}</td>
-                <td style="padding-top: 10px;">{{ Str::limit($post->japanese, 40, '…' ) }}</td>
-                <td style="padding-top: 10px;">
-                  @if($post->voice_script)
-                  <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">Play</button>
-                  @else
-                  <span>音声なし</span>
-                  @endif
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+      <div class="container ">
+        <div class="w-full overflow-auto">
+          <button style="padding-top:10px" type="button" onclick="location.href='{{ route('post.shuffle') }}'">伊→日</button>
+          <div class="w-full mx-auto">
+            @foreach($posts as $post)
+            <div class="flex" onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'">
+              <!-- イタリア語 & 日本語の部分 -->
+              <div class="" style="width: 80%; padding-top: 15px;">
+                <div class="">
+                  {{ Str::limit($post->italian, 40, '…' ) }}
+                </div>
+                <div class="">
+                  {{ Str::limit($post->japanese, 40, '…' ) }}
+                </div>
+              </div>
+
+              <!-- 音声ボタンの部分 -->
+              <div class="flex items-center" style="width: 20%;" >
+                @if($post->voice_script)
+                <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">音声</button>
+                @else
+                <span>音声なし</span>
+                @endif
+              </div>
+            </div>
+            @endforeach
+          </div>
         </div>
       </div>
     </section>
@@ -59,7 +59,6 @@
     if (currentAudio) {
       currentAudio.pause(); // すでに再生中の音声があれば、停止
       currentAudio = null;
-      buttonElement.textContent = "Play";
       return;
     }
 
@@ -67,11 +66,9 @@
     audio.play();
 
     audio.onended = function() {
-      buttonElement.textContent = "Play";
       currentAudio = null;
     };
 
     currentAudio = audio;
-    buttonElement.textContent = "Stop";
   }
 </script>
