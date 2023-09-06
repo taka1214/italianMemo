@@ -10,12 +10,12 @@
       @method('PUT')
       <div class="p-2 w-full">
         <div>
-          <label for="italian" class="text-gray-600">イタリア語</label>
+          <!-- <label for="italian" class="text-gray-600">イタリア語</label> -->
           <textarea id="italian" style="padding: 5px;" name="italian" rows="5" required>{{ old('italian', $post->italian) }}</textarea>
           <x-input-error :messages="$errors->get('italian')" class="mt-2" />
         </div>
         <div>
-          <label for="japanese" class="text-gray-600">日本語</label>
+          <!-- <label for="japanese" class="text-gray-600">日本語</label> -->
           <textarea id="japanese" style="padding: 5px;" name="japanese" rows="5" required>{{ old('japanese', $post->japanese) }}</textarea>
           <x-input-error :messages="$errors->get('japanese')" class="mt-2" />
         </div>
@@ -23,26 +23,30 @@
           <label for="voice_script" class="text-gray-600">音声ファイル</label>
           @if($post->voice_script)
           <p>現在の音声:
-            <audio controls>
-              <source src="{{ Storage::disk('s3')->url($post->voice_script) }}" type="audio/mp3">
-              お使いのブラウザは音声タグをサポートしていません。
-            </audio>
+            @if($post->voice_script)
+            <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">音声再生</button>
+            @else
+            <span>音声なし</span>
+            @endif
           </p>
           @endif
           <input type="file" id="voice_script" name="voice_script" accept="audio/*">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
         </div>
-        <div>
+        <div class="mt-4">
           @if(empty($post->memo))
           <!-- メモが空の場合、チェックボックスを表示 -->
-          <!-- <label for="enableMemo" class="text-gray-600">メモを有効にする</label> -->
-          <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />
-
-          <label for="memo" class="text-gray-600 mt-4">メモ</label>
+          <div>
+            <!-- <label for="enableMemo" class="text-gray-600">メモを有効にする</label> -->
+            <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />
+            <label for="memo" class="text-gray-600 mt-4">メモ</label>
+          </div>
           <textarea id="memo" style="padding: 5px;" name="memo" rows="5" required disabled>{{ old('memo', $post->memo) }}</textarea>
           @else
-          <!-- メモに何か値がある場合、通常のテキストエリアを表示 -->
-          <label for="memo" class="text-gray-600">メモ</label>
+          <div>
+            <!-- メモに何か値がある場合、通常のテキストエリアを表示 -->
+            <label for="memo" class="text-gray-600 m1-2">メモ</label>
+          </div>
           <textarea id="memo" style="padding: 5px;" name="memo" rows="5" required>{{ old('memo', $post->memo) }}</textarea>
           @endif
           <x-input-error :messages="$errors->get('memo')" class="mt-2" />
@@ -70,5 +74,24 @@
     const textarea = document.getElementById('memo');
 
     textarea.disabled = !checkbox.checked;
+  }
+
+  let currentAudio = null; // 現在再生中のオーディオオブジェクトを保持するための変数
+
+  function playVoiceScript(url, buttonElement) {
+    if (currentAudio) {
+      currentAudio.pause(); // すでに再生中の音声があれば、停止
+      currentAudio = null;
+      return;
+    }
+
+    const audio = new Audio(url);
+    audio.play();
+
+    audio.onended = function() {
+      currentAudio = null;
+    };
+
+    currentAudio = audio;
   }
 </script>
