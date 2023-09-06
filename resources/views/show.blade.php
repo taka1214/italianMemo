@@ -11,8 +11,17 @@
         <h3 class="font-semibold text-gray-500 flex items-center justify-center">イタリア語の音声</h3>
         <div>
           <p>音声再生</p>
+          @php
+          $fileType = pathinfo($post->voice_script, PATHINFO_EXTENSION);
+          $mimeTypes = [
+          'mp3' => 'audio/mpeg',
+          'm4a' => 'audio/m4a',
+          // 他の拡張子とMIMEタイプもここに追加できます
+          ];
+          $mimeType = $mimeTypes[$fileType] ?? 'audio/mpeg'; // デフォルトとしてmp3を設定
+          @endphp
           <audio controls>
-            <source src="{{ Storage::disk('s3')->url($post->voice_script) }}" type="audio/mp3">
+            <source src="{{ Storage::disk('s3')->url($post->voice_script) }}" type="{{ $mimeType }}">
             お使いのブラウザは音声タグをサポートしていません。
           </audio>
         </div>

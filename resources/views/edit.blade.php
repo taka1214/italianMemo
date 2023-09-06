@@ -9,19 +9,18 @@
       @csrf
       @method('PUT')
       <div class="p-2 w-full">
-        <div class="relative">
+        <div>
           <label for="italian" class="text-gray-600">イタリア語</label>
           <textarea id="italian" style="padding: 5px;" name="italian" rows="5" required>{{ old('italian', $post->italian) }}</textarea>
           <x-input-error :messages="$errors->get('italian')" class="mt-2" />
         </div>
-        <div class="relative">
+        <div>
           <label for="japanese" class="text-gray-600">日本語</label>
           <textarea id="japanese" style="padding: 5px;" name="japanese" rows="5" required>{{ old('japanese', $post->japanese) }}</textarea>
           <x-input-error :messages="$errors->get('japanese')" class="mt-2" />
         </div>
-        <div class="relative">
+        <div>
           <label for="voice_script" class="text-gray-600">音声ファイル</label>
-
           @if($post->voice_script)
           <p>現在の音声:
             <audio controls>
@@ -30,11 +29,10 @@
             </audio>
           </p>
           @endif
-
           <input type="file" id="voice_script" name="voice_script" accept="audio/*">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
         </div>
-        <div class="relative">
+        <div>
           @if(empty($post->memo))
           <!-- メモが空の場合、チェックボックスを表示 -->
           <!-- <label for="enableMemo" class="text-gray-600">メモを有効にする</label> -->
