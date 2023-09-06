@@ -20,11 +20,11 @@
           <x-input-error :messages="$errors->get('japanese')" class="mt-2" />
         </div>
         <div>
-          <label for="voice_script" class="text-gray-600">音声ファイル</label>
+          <!-- <label for="voice_script" class="text-gray-600">音声ファイル</label> -->
           @if($post->voice_script)
           <p>
             @if($post->voice_script)
-            <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">現在の音声</button>
+            <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation(); return false;">現在の音声</button>
             @else
             <span>音声なし</span>
             @endif
