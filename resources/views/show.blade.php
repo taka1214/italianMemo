@@ -10,20 +10,13 @@
       <div class="bg-white p-6 rounded-lg shadow-lg">
         <h3 class="font-semibold text-gray-500 flex items-center justify-center">イタリア語の音声</h3>
         <div>
-          <p>音声再生</p>
-          @php
-          $fileType = pathinfo($post->voice_script, PATHINFO_EXTENSION);
-          $mimeTypes = [
-          'mp3' => 'audio/mpeg',
-          'm4a' => 'audio/m4a',
-          // 他の拡張子とMIMEタイプもここに追加できます
-          ];
-          $mimeType = $mimeTypes[$fileType] ?? 'audio/mpeg'; // デフォルトとしてmp3を設定
-          @endphp
-          <audio controls>
-            <source src="{{ Storage::disk('s3')->url($post->voice_script) }}" type="{{ $mimeType }}">
-            お使いのブラウザは音声タグをサポートしていません。
-          </audio>
+          <div class="flex items-center" style="width: 20%;">
+            @if($post->voice_script)
+            <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">音声再生</button>
+            @else
+            <span>音声なし</span>
+            @endif
+          </div>
         </div>
         <div style="padding-top: 10px;">
           <div class="font-semibold" onclick="toggleVisibility('italianContent', 'italianToggleIcon')">audio script<span id="italianToggleIcon">▼</span></div>
@@ -84,5 +77,24 @@
         memoContentElement.style.display = "none";
       }
     }
+  }
+
+  let currentAudio = null; // 現在再生中のオーディオオブジェクトを保持するための変数
+
+  function playVoiceScript(url, buttonElement) {
+    if (currentAudio) {
+      currentAudio.pause(); // すでに再生中の音声があれば、停止
+      currentAudio = null;
+      return;
+    }
+
+    const audio = new Audio(url);
+    audio.play();
+
+    audio.onended = function() {
+      currentAudio = null;
+    };
+
+    currentAudio = audio;
   }
 </script>
