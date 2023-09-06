@@ -94,7 +94,7 @@ class PostController extends Controller
         $request->validate([
             'italian' => 'required',
             'japanese' => 'required',
-            'voice_script' => 'nullable|file|mimes:mp3,wav,ogg|max:5000',
+            'voice_script' => 'nullable|file|mimes:mp3,wav,m4a,ogg|max:8000',
             'memo' => 'nullable',
         ]);
 
