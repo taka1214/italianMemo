@@ -24,7 +24,7 @@
                   {{ Str::limit($post->italian, 40, '…' ) }}
                 </div>
                 <div class="">
-                  {{ Str::limit($post->japanese, 40, '…' ) }}
+                  {{ Str::limit($post->japanese, 37, '…' ) }}
                 </div>
               </div>
 
