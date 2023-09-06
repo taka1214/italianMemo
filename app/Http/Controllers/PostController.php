@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 
 class PostController extends Controller
@@ -29,6 +30,9 @@ class PostController extends Controller
             'voice_script' => 'required|file|mimes:mp3,wav,ogg,audio/x-m4a,audio/mp4|max:8000',
             'memo' => 'nullable',
         ]);
+
+        \Log::info($request->file('voice_script')->getMimeType());
+
 
         // S3にファイルを保存
         $voiceScriptPath = null;
