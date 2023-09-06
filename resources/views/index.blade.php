@@ -20,6 +20,7 @@
               <tr>
                 <th>イタリア語</th>
                 <th>日本語</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -27,6 +28,13 @@
               <tr onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'">
                 <td style="padding-top: 10px;">{{ Str::limit($post->italian, 40, '…' ) }}</td>
                 <td style="padding-top: 10px;">{{ Str::limit($post->japanese, 40, '…' ) }}</td>
+                <td style="padding-top: 10px;">
+                  @if($post->voice_script) <!-- ここで確認 -->
+                  <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}'); event.stopPropagation();">Play</button>
+                  @else
+                  <span>音声なし</span>
+                  @endif
+                </td>
               </tr>
               @endforeach
             </tbody>
@@ -43,5 +51,10 @@
     setTimeout(function() {
       document.getElementById('postMessage').style.display = 'none';
     }, 3000); // 3000ミリ秒後（3秒後）に実行
+  }
+
+  function playVoiceScript(url) {
+    let audio = new Audio(url);
+    audio.play();
   }
 </script>
