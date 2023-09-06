@@ -24,7 +24,7 @@
           @if($post->voice_script)
           <p>
             @if($post->voice_script)
-            <button type="button" onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation(); return false;">現在の音声</button>
+            <button type="button" onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this);">現在の音声</button>
             @else
             <span>音声なし</span>
             @endif
