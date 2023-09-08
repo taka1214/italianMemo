@@ -7,7 +7,7 @@
   <div style="padding-top:10px; ">
     <form method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
       @csrf
-      <div style="text-align: center">
+      <div style="text-align: center;">
         <div>
           <!-- <label for="italian" class="text-gray-600">イタリア語</label> -->
           <textarea id="italian" style="padding: 5px;" name="italian" rows="5" cols="35" required placeholder="Italiano">{{ old('italian') }}</textarea>
@@ -18,22 +18,22 @@
           <textarea id="japanese" style="padding: 5px;" name="japanese" rows="5" cols="35" required placeholder="日本語">{{ old('japanese') }}</textarea>
           <x-input-error :messages="$errors->get('japanese')" class="mt-2" />
         </div>
-        <div style="padding-left: 10%; text-align: left;">
+        <div style="padding-left: 8%; text-align: left;">
           <!-- <label for="voice_script" class="text-gray-600">音声ファイル</label> -->
           <input type="file" id="voice_script" name="voice_script">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
         </div>
-        <div class="mt-4" style="padding-left: 10%; text-align: left;">
+        <div class="mt-4" style="padding-left: 8%; text-align: left;">
           <div>
             <label for="memo" class="text-gray-600 m1-2">メモ</label>
             <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />
           </div>
-          <textarea id="memo" style="padding: 5px;" name="memo" rows="5" cols="35" required disabled>{{ old('memo') }}</textarea>
+          <textarea id="memo" name="memo" rows="10" cols="35" required disabled>{{ old('memo') }}</textarea>
           <x-input-error :messages="$errors->get('memo')" class="mt-2" />
         </div>
       </div>
       <div style="padding-top: 10px;">
-        <button type="submit" style="padding-left: 10%;">登録</button><br>
+        <button type="submit" style="padding-left: 8%;">登録</button><br>
         <div style="text-align: center;">
           <button type="button" style="padding-top: 5px;" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
         </div>
