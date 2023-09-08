@@ -22,13 +22,6 @@
           <label for="voice_script" class="text-gray-600">音声ファイル</label>
           <input type="file" id="voice_script" name="voice_script" accept="audio/*">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
-          @if(isset($post) && $post->voice_script)
-          <p>現在の音声:</p>
-          <audio controls>
-            <source src="{{ Storage::disk('s3')->url($post->voice_script) }}" type="audio/mp3">
-            お使いのブラウザは音声タグをサポートしていません。
-          </audio>
-          @endif
         </div>
         <div class="mt-4">
           <div>
