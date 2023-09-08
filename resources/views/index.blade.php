@@ -4,8 +4,10 @@
       自分で作るイタリア語帳
     </h2>
   </x-slot>
-  <div style="padding:10px" class="text-gray-600">
+  <div style="padding:10px; text-align: center;" class="text-gray-600">
+  <div style="text-align: right; padding-right: 10px;">
     <button type="button" onclick="location.href='{{ route('post.create') }}'">新規登録</button>
+  </div>
     @if(session('message'))
     <div id="postMessage">
       {{ session('message') }}
@@ -19,7 +21,7 @@
             @foreach($posts as $post)
             <div class="flex" onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'">
               <!-- イタリア語 & 日本語の部分 -->
-              <div class="" style="width: 80%; padding-top: 15px;">
+              <div class="" style="width: 80%; padding-top: 15px; text-align: left;">
                 <div class="">
                   {{ Str::limit($post->italian, 40, '…' ) }}
                 </div>
@@ -29,7 +31,7 @@
               </div>
 
               <!-- 音声ボタンの部分 -->
-              <div class="flex items-center" style="width: 20%;" >
+              <div class="flex items-center" style="width: 20%; text-align: right;" >
                 @if($post->voice_script)
                 <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">音声</button>
                 @else

@@ -10,7 +10,7 @@
       <div class="bg-white p-6 rounded-lg shadow-lg">
         <h3 class="font-semibold text-gray-500 flex items-center justify-center">イタリア語の音声</h3>
         <div>
-          <div class="flex items-center" style="width: 20%;">
+          <div class="flex items-center" style="width: 20%; padding-top: 10%;">
             @if($post->voice_script)
             <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">音声再生</button>
             @else
@@ -18,7 +18,7 @@
             @endif
           </div>
         </div>
-        <div style="padding-top: 10px;">
+        <div style="padding-top: 10%;">
           <div class="font-semibold" onclick="toggleVisibility('italianContent', 'italianToggleIcon')">audio script<span id="italianToggleIcon">▼</span></div>
           <div id="italianContent" style="display:none;">
             &nbsp;&nbsp;{{ $post->italian }}
@@ -27,17 +27,19 @@
             @endif
           </div>
         </div>
-        <div style="padding-top: 10px;">
+        <div style="padding-top: 10%;">
           <div class="font-semibold" onclick="toggleVisibility('japaneseContent', 'japaneseToggleIcon')">日本語<span id="japaneseToggleIcon">▼</span></div>
           <p id="japaneseContent" style="display:none;">&nbsp;&nbsp;{{ $post->japanese }}</p>
           @if(!empty($post->memo))
           <p id="japaneseMemoContent" style="display:none;">&nbsp;&nbsp;※メモ{{ $post->memo }}</p>
           @endif
         </div>
-        <button type="button" style="padding-top: 10px;" onclick="location.href='{{ route('post.shuffle') }}'">次へ</button>
+        <button type="button" style="padding-top: 10%;" onclick="location.href='{{ route('post.shuffle') }}'">次へ</button>
       </div>
     </div>
-    <button type="button" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
+    <div style="text-align: center;">
+      <button type="button" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
+    </div>
   </div>
 </x-app-layout>
 

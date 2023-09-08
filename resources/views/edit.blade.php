@@ -8,18 +8,18 @@
     <form method="post" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
       @csrf
       @method('PUT')
-      <div class="p-2 w-full">
+      <div style="text-align: center">
         <div>
           <!-- <label for="italian" class="text-gray-600">イタリア語</label> -->
-          <textarea id="italian" style="padding: 5px;" name="italian" rows="5" required>{{ old('italian', $post->italian) }}</textarea>
+          <textarea id="italian" style="padding: 5px;" name="italian" cols="35" rows="5" required>{{ old('italian', $post->italian) }}</textarea>
           <x-input-error :messages="$errors->get('italian')" class="mt-2" />
         </div>
         <div>
           <!-- <label for="japanese" class="text-gray-600">日本語</label> -->
-          <textarea id="japanese" style="padding: 5px;" name="japanese" rows="5" required>{{ old('japanese', $post->japanese) }}</textarea>
+          <textarea id="japanese" style="padding: 5px;" name="japanese" cols="35" rows="5" required>{{ old('japanese', $post->japanese) }}</textarea>
           <x-input-error :messages="$errors->get('japanese')" class="mt-2" />
         </div>
-        <div>
+        <div style="padding-left: 10%; text-align: left;">
           @if($post->voice_script)
           <p>
             <button type="button" onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this);">音声再生</button>
@@ -30,7 +30,7 @@
           <input type="file" id="voice_script" name="voice_script">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
         </div>
-        <div class="mt-4">
+        <div class="mt-4" style="padding-left: 10%; text-align: left;">
           @if(empty($post->memo))
           <!-- メモが空の場合、チェックボックスを表示 -->
           <div>
@@ -38,25 +38,27 @@
             <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />
             <label for="memo" class="text-gray-600 mt-4">メモ</label>
           </div>
-          <textarea id="memo" style="padding: 5px;" name="memo" rows="5" required disabled>{{ old('memo', $post->memo) }}</textarea>
+          <textarea id="memo" style="padding: 5px;" name="memo" colsrows="5" required disabled>{{ old('memo', $post->memo) }}</textarea>
           @else
           <div>
             <!-- メモに何か値がある場合、通常のテキストエリアを表示 -->
             <label for="memo" class="text-gray-600 m1-2">メモ</label>
           </div>
-          <textarea id="memo" style="padding: 5px;" name="memo" rows="5" required>{{ old('memo', $post->memo) }}</textarea>
+          <textarea id="memo" style="padding: 5px;" name="memo" cols="35" rows="5" required>{{ old('memo', $post->memo) }}</textarea>
           @endif
           <x-input-error :messages="$errors->get('memo')" class="mt-2" />
         </div>
       </div>
-      <button type="submit" style="padding-top: 10px;">更新</button>
+      <button type="submit" style="padding-top: 10px; padding-left: 10%;">更新</button>
     </form>
-    <form id="deleteForm" style="padding-top: 10px;" action="{{ route('post.destroy', $post->id) }}" method="POST">
+    <form id="deleteForm" style="padding-top: 10px; padding-left: 10%;" action="{{ route('post.destroy', $post->id) }}" method="POST">
       @csrf
       @method('DELETE')
       <button type="submit" onclick="return deletePost();" style="background-color: red; color: white;">削除</button>
     </form>
-    <button type="button" style="padding-top: 10px;" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
+    <div style="text-align: center;">
+      <button type="button" style="padding-top: 10px;" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
+    </div>
   </div>
 </x-app-layout>
 
