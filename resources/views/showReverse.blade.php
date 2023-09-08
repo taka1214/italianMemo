@@ -10,6 +10,10 @@
       <div class="bg-white p-6 rounded-lg shadow-lg">
         <h3 class="font-semibold text-gray-500 flex items-center justify-center">イタリア語の音声</h3>
         <div>
+          <div style="padding-top: 10%;">
+            <div class="font-semibold">日本語</div>
+            <p id="japaneseContent">&nbsp;&nbsp;{{ $post->japanese }}</p>
+          </div>
           <div class="flex items-center" style="width: 20%; padding-top: 10%;">
             @if($post->voice_script)
             <button onclick="playVoiceScript('{{ Storage::disk('s3')->url($post->voice_script) }}', this); event.stopPropagation();">音声再生</button>
@@ -22,19 +26,9 @@
           <div class="font-semibold" onclick="toggleVisibility('italianContent', 'italianToggleIcon')">audio script<span id="italianToggleIcon">▼</span></div>
           <div id="italianContent" style="display:none;">
             &nbsp;&nbsp;{{ $post->italian }}
-            @if(!empty($post->memo))
-            <span id="italianMemoNote" style="display:block;">&nbsp;&nbsp;※メモあり</span>
-            @endif
           </div>
         </div>
-        <div style="padding-top: 10%;">
-          <div class="font-semibold" onclick="toggleVisibility('japaneseContent', 'japaneseToggleIcon')">日本語<span id="japaneseToggleIcon">▼</span></div>
-          <p id="japaneseContent" style="display:none;">&nbsp;&nbsp;{{ $post->japanese }}</p>
-          @if(!empty($post->memo))
-          <p id="japaneseMemoContent" style="display:none;">&nbsp;&nbsp;※メモ{{ $post->memo }}</p>
-          @endif
-        </div>
-        <button type="button" style="padding-top: 10%;" onclick="location.href='{{ route('post.shuffle') }}'">次へ</button>
+        <button type="button" style="padding-top: 10%;" onclick="location.href='{{ route('post.shuffleReverse') }}'">次へ</button>
       </div>
     </div>
     <div style="text-align: center;">

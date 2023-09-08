@@ -56,7 +56,7 @@
       @method('DELETE')
       <button type="submit" onclick="return deletePost();" style="background-color: red; color: white;">削除</button>
     </form>
-    <div style="text-align: center;">
+    <div style="text-align: center; padding-bottom: 10%;">
       <button type="button" style="padding-top: 10px;" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
     </div>
   </div>

@@ -77,6 +77,32 @@ class PostController extends Controller
         return view('show', ['post' => $post]);
     }
 
+    public function shuffleReverse()
+    {
+        // セッションにシャッフルされたアイテムがあれば取得
+        if (session()->has('shuffled_posts') && !session('shuffled_posts')->isEmpty()) {
+            $shuffledPosts = collect(session('shuffled_posts'));
+        } else {
+            // セッションにアイテムがない、または空の場合は再度シャッフル
+            $shuffledPosts = Item::all()->shuffle()->pluck('id');
+            session(['shuffled_posts' => $shuffledPosts]);
+        }
+
+        if ($shuffledPosts->isEmpty()) {
+            // セッションをクリアして一覧ページに戻る
+            session()->forget('shuffled_posts');
+            return redirect()->route('post.index')->with('message', 'All posts have been displayed!');
+        }
+
+        $postId = $shuffledPosts->first();
+        $post = Item::find($postId);
+
+        // セッションから最初のアイテムを削除
+        session(['shuffled_posts' => $shuffledPosts->slice(1)->values()]);
+
+        return view('showReverse', ['post' => $post]);
+    }
+
     public function edit($id)
     {
         $post = Item::find($id);

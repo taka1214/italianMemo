@@ -34,7 +34,7 @@
       </div>
       <div style="padding-top: 10px;">
         <button type="submit" style="padding-left: 8%;">登録</button><br>
-        <div style="text-align: center;">
+        <div style="text-align: center; padding-bottom: 10%;">
           <button type="button" style="padding-top: 5px;" onclick="location.href='{{ route('post.index') }}'">一覧画面</button>
         </div>
       </div>
