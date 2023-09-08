@@ -27,7 +27,7 @@
             <span>音声なし</span>
           </p>
           @endif
-          <input type="file" id="voice_script" name="voice_script" accept="audio/*">
+          <input type="file" id="voice_script" name="voice_script">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
         </div>
         <div class="mt-4">
