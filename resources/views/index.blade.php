@@ -14,7 +14,10 @@
     </div>
     @endif
     <section class="text-gray-600 body-font">
-      <div class="container ">
+      <div class="container">
+        <div id="vue">
+          <App></App>
+        </div>
         <div class="w-full overflow-auto">
           <button style="border:1px solid;" type="button" onclick="location.href='{{ route('post.shuffle') }}'">伊→日</button>          
           <button style="border:1px solid;" type="button" onclick="location.href='{{ route('post.shuffleReverse') }}'">日→伊</button> 

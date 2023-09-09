@@ -15,6 +15,7 @@ class Item extends Model
         'japanese',
         'voice_script',
         'memo',
+        'category',
     ];
 
 }

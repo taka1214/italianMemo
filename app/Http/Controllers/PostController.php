@@ -13,7 +13,7 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $posts = Item::select('id', 'italian', 'japanese', 'voice_script', 'memo')->get();
+        $posts = Item::select('id', 'italian', 'japanese', 'voice_script', 'memo', 'category')->get();
         return view('index', compact('posts'));
     }
 
@@ -29,6 +29,7 @@ class PostController extends Controller
             'japanese' => 'required',
             'voice_script' => 'required|file|mimes:mp3,wav,ogg,m4a|max:8000',
             'memo' => 'nullable',
+            'memo' => 'required',
         ]);
 
         // S3にファイルを保存
@@ -43,6 +44,7 @@ class PostController extends Controller
             'japanese' => $request->japanese,
             'voice_script' => $voiceScriptPath,
             'memo' => $request->memo,
+            'category' => $request->category,
         ]);
 
         return redirect()->route('post.index')
