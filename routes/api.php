@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/items/spreadsheet', [ApiItemController::class, 'getSpreadsheetItems']);
 Route::get('/items/kentei', [ApiItemController::class, 'getKenteiItems']);
+Route::get('/api/shuffle', [ApiItemController::class, 'shuffle']);
+Route::get('/api/shuffleReverse', [ApiItemController::class, 'shuffleReverse']);

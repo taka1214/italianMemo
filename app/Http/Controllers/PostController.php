@@ -53,6 +53,7 @@ class PostController extends Controller
             ]);
     }
 
+    //イタリア語から日本語のシャッフル
     public function shuffle()
     {
         // セッションにシャッフルされたアイテムがあれば取得
@@ -79,6 +80,7 @@ class PostController extends Controller
         return view('show', ['post' => $post]);
     }
 
+    //日本語からイタリア語のシャッフル
     public function shuffleReverse()
     {
         // セッションにシャッフルされたアイテムがあれば取得

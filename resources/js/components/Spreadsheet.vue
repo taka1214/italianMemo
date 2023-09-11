@@ -1,12 +1,12 @@
 <template>
   <div>
+      <button @click="shuffleData">イタリア語から日本語のシャッフル</button>
+      <button @click="shuffleReverseData">日本語からイタリア語のシャッフル</button>
+
       <div v-for="item in items" :key="item.id">
-          <!-- 例: itemの内容を表示 -->
           {{ item.italian }} 
           {{ item.japanese }}
-          <!-- 音声再生ボタンを追加 -->
           <button @click="playVoiceScript(item.voice_script_url, $event)">音声</button>
-
       </div>
   </div>
 </template>
@@ -52,6 +52,24 @@ export default {
 
           this.currentAudio = audio;
           event.stopPropagation();
+      }, 
+      shuffleData() {
+          axios.get('/api/shuffle')
+              .then(response => {
+                  this.items = [response.data];
+              })
+              .catch(error => {
+                  console.error("データのシャッフル中にエラーが発生しました:", error);
+              });
+      },
+      shuffleReverseData() {
+          axios.get('/api/shuffleReverse')
+              .then(response => {
+                  this.items = [response.data];
+              })
+              .catch(error => {
+                  console.error("データのシャッフル中にエラーが発生しました:", error);
+              });
       }
   }
 }

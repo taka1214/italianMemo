@@ -18,6 +18,7 @@
         <div id="vue">
           <App></App>
         </div>
+        {{-- ここから一覧非表示
         <div class="w-full overflow-auto">
           <button style="border:1px solid;" type="button" onclick="location.href='{{ route('post.shuffle') }}'">伊→日</button>          
           <button style="border:1px solid;" type="button" onclick="location.href='{{ route('post.shuffleReverse') }}'">日→伊</button> 
@@ -46,6 +47,7 @@
             @endforeach
           </div>
         </div>
+        ここまで一覧非表示--}}
       </div>
     </section>
   </div>
