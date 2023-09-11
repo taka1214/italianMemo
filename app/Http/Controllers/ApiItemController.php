@@ -11,7 +11,7 @@ class ApiItemController extends Controller
     public function getSpreadsheetItems()
     {
         $items = Item::where('category', 'spreadsheet')->get();
-
+;
         // 各アイテムに対してS3のURLを生成
         $items->transform(function ($item) {
             if ($item->voice_script) {
