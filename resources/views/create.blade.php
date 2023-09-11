@@ -23,6 +23,20 @@
           <input type="file" id="voice_script" name="voice_script">
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
         </div>
+        <div class="mt-4">
+          <span class="text-gray-600">カテゴリ:</span>
+          <div>
+            <label class="inline-flex items-center">
+              <input type="radio" name="category" value="spreadsheet" {{ old('category') == 'spreadsheet' ? 'checked' : '' }}>
+              <span class="ml-1 mr-2">Spreadsheet</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input type="radio" name="category" value="kentei" {{ old('category') == 'kentei' ? 'checked' : '' }}>
+              <span class="ml-1">検定</span>
+            </label>
+          </div>
+          <x-input-error :messages="$errors->get('category')" class="mt-2" />
+        </div>
         <div class="mt-4" style="padding-left: 8%; text-align: left;">
           <div>
             <label for="memo" class="text-gray-600 m1-2">メモ</label>

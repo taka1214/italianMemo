@@ -25,11 +25,11 @@
             @foreach($posts as $post)
             <div class="flex" onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'">
               <!-- イタリア語 & 日本語の部分 -->
-              <div class="" style="width: 80%; padding-top: 15px; text-align: left;">
-                <div class="">
+              <div style="width: 80%; padding-top: 15px; text-align: left;">
+                <div>
                   {{ Str::limit($post->italian, 40, '…' ) }}
                 </div>
-                <div class="">
+                <div>
                   {{ Str::limit($post->japanese, 37, '…' ) }}
                 </div>
               </div>

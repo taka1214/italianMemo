@@ -28,8 +28,8 @@ class PostController extends Controller
             'italian' => 'required',
             'japanese' => 'required',
             'voice_script' => 'required|file|mimes:mp3,wav,ogg,m4a|max:8000',
+            'category' => 'required',
             'memo' => 'nullable',
-            'memo' => 'required',
         ]);
 
         // S3にファイルを保存
