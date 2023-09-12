@@ -26,4 +26,9 @@ export default defineConfig({
             vue: 'vue/dist/vue.esm-bundler.js',
         },
     },
+    build: {
+        outDir: 'public/build',
+    },
+    // 必要に応じてbaseの設定を追加
+    // base: '/sub-directory/',
 });
