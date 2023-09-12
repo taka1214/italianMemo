@@ -24,6 +24,18 @@
           <x-input-error :messages="$errors->get('voice_script')" class="mt-2" />
         </div>
         <div class="mt-4" style="padding-left: 8%; text-align: left;">
+          <label class="text-gray-600 m1-2">カテゴリ</label>
+          <div>
+            <input type="radio" id="spreadsheet" name="category" value="spreadsheet" @if(old('category')=='spreadsheet' ) checked @endif>
+            <label for="spreadsheet">Spreadsheet</label>
+          </div>
+          <div>
+            <input type="radio" id="kentei" name="category" value="kentei" @if(old('category')=='kentei' ) checked @endif>
+            <label for="kentei">Kentei</label>
+          </div>
+          <x-input-error :messages="$errors->get('category')" class="mt-2" />
+        </div>
+        <div class="mt-4" style="padding-left: 8%; text-align: left;">
           <div>
             <label for="memo" class="text-gray-600 m1-2">メモ</label>
             <input type="checkbox" id="enableMemo" onclick="toggleTextarea()" />

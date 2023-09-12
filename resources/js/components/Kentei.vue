@@ -5,7 +5,7 @@
           {{ item.italian }} 
           {{ item.japanese }}
           <!-- 音声再生ボタンを追加 -->
-          <button @click="playVoiceScript(item.voice_script, $event)">音声</button>
+          <button @click="playVoiceScript(item.voice_script_url, $event)">音声</button>
       </div>
   </div>
 </template>
