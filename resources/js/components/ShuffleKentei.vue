@@ -1,13 +1,14 @@
 <template>
   <div>
-    <button @click="goToShuffle">シャッフル</button>
-    <div v-for="item in items" :key="item.id">
+    <button @click="shuffleItems">シャッフル</button>
+    <div v-for="item in shuffledItems" :key="item.id">
       {{ item.italian }}
       {{ item.japanese }}
       <button @click="playVoiceScript(item.voice_script_url, $event)">
         音声
       </button>
     </div>
+    <button @click="goToKentei">一覧表示へ</button>
   </div>
 </template>
 
@@ -18,7 +19,8 @@ export default {
   data() {
     return {
       items: [],
-      currentAudio: null, // 現在再生中のオーディオオブジェクトを保持するためのデータ
+      shuffledItems: [],
+      currentAudio: null,
     };
   },
   mounted() {
@@ -27,19 +29,23 @@ export default {
   methods: {
     fetchData() {
       axios
-        .get("/api/items/spreadsheet")
+        .get("/api/items/kentei")
         .then((response) => {
           this.items = response.data;
+          this.shuffleItems();
         })
         .catch((error) => {
           console.error("データの取得中にエラーが発生しました:", error);
         });
     },
+    shuffleItems() {
+      this.shuffledItems = [...this.items].sort(() => Math.random() - 0.5);
+    },
     playVoiceScript(voiceScriptPath, event) {
       const url = voiceScriptPath;
 
       if (this.currentAudio) {
-        this.currentAudio.pause(); // すでに再生中の音声があれば、停止
+        this.currentAudio.pause();
         this.currentAudio = null;
         return;
       }
@@ -54,10 +60,9 @@ export default {
       this.currentAudio = audio;
       event.stopPropagation();
     },
-    goToShuffle() {
-      this.$router.push("/shuffle");
+    goToKentei() {
+      this.$router.push("/kentei");
     },
   },
 };
 </script>
-

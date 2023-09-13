@@ -5,9 +5,11 @@
     </h2>
   </x-slot>
   <div style="padding:10px; text-align: center;" class="text-gray-600">
+  {{--  
   <div style="text-align: right; padding-right: 10px;">
     <button type="button" onclick="location.href='{{ route('post.create') }}'">新規登録</button>
   </div>
+  --}}
     @if(session('message'))
     <div id="postMessage">
       {{ session('message') }}
@@ -18,6 +20,7 @@
         <div id="vue">
           <App></App>
         </div>
+        {{-- 
         <div class="w-full overflow-auto">
           <button style="border:1px solid;" type="button" onclick="location.href='{{ route('post.shuffle') }}'">伊→日</button>          
           <button style="border:1px solid;" type="button" onclick="location.href='{{ route('post.shuffleReverse') }}'">日→伊</button> 
@@ -46,6 +49,7 @@
             @endforeach
           </div>
         </div>
+        --}}
       </div>
     </section>
   </div>

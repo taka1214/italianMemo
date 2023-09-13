@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiItemController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,5 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// api.php
 Route::get('/items/spreadsheet', [ApiItemController::class, 'getSpreadsheetItems']);
 Route::get('/items/kentei', [ApiItemController::class, 'getKenteiItems']);
+Route::get('/items/shuffle', [ApiItemController::class, 'shuffleItems']);
+Route::get('/items/shuffleKentei', [ApiItemController::class, 'shuffleItemsKentei']);
+
+Route::post('/items', [PostController::class, 'store']); 
