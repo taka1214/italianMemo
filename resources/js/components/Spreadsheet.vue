@@ -7,8 +7,8 @@
       class="d-flex justify-content-between align-items-start mb-2"
     >
       <div @click="editItem(item.id)" class="text-left px-2">
-        <div>{{ item.italian }}</div>
-        <div>{{ item.japanese }}</div>
+        <div class="text-left-class">{{ truncateText(item.italian) }}</div>
+        <div class="text-left-class">{{ truncateJapaneseText(item.japanese) }}</div>
       </div>
       <div class="ml-auto px-2">
         <button @click="playVoiceScript(item.voice_script_url, $event)">
@@ -19,7 +19,6 @@
   </div>
 </template>
   
-
 <script>
 import axios from "axios";
 
@@ -69,7 +68,24 @@ export default {
     editItem(itemId) {
       this.$router.push(`/edit/${itemId}`);
     },
+    truncateText(text) {
+      if (text.length > 35) {
+        return text.substring(0, 35) + "...";
+      }
+      return text;
+    },
+    truncateJapaneseText(text) {
+      if (text.length > 17) {
+        return text.substring(0, 17) + "...";
+      }
+      return text;
+    },
   },
 };
 </script>
 
+<style scoped>
+.text-left-class {
+  text-align: left;
+}
+</style>
