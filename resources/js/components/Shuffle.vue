@@ -1,14 +1,17 @@
 <template>
   <div>
     <button @click="shuffleItems">シャッフル</button>
-    <div v-for="item in shuffledItems" :key="item.id">
-      {{ item.italian }}
-      {{ item.japanese }}
-      <button @click="playVoiceScript(item.voice_script_url, $event)">
-        音声
-      </button>
+    <div v-if="shuffledItems.length">
+      {{ currentItem.italian }}
+      {{ currentItem.japanese }}
+      <label>音声</label>
+      <audio controls :key="currentItem.id">
+        <source :src="currentItem.voice_script_url" />
+        Your browser does not support the audio element.
+      </audio>
+      <button @click="nextItem">次へ</button>
     </div>
-    <button @click="goToSpreadsheet">一覧表示へ</button>
+    <button v-else @click="goHome">ホームへ</button>
   </div>
 </template>
 
@@ -20,8 +23,14 @@ export default {
     return {
       items: [],
       shuffledItems: [],
+      currentItemIndex: 0,
       currentAudio: null,
     };
+  },
+  computed: {
+    currentItem() {
+      return this.shuffledItems[this.currentItemIndex];
+    },
   },
   mounted() {
     this.fetchData();
@@ -41,6 +50,16 @@ export default {
     shuffleItems() {
       this.shuffledItems = [...this.items].sort(() => Math.random() - 0.5);
     },
+    nextItem() {
+      if (this.currentItemIndex < this.shuffledItems.length - 1) {
+        this.currentItemIndex++;
+      } else {
+        this.goHome();
+      }
+    },
+    goHome() {
+      this.$router.push("/");
+    },
     playVoiceScript(voiceScriptPath, event) {
       const url = voiceScriptPath;
 
@@ -59,9 +78,6 @@ export default {
 
       this.currentAudio = audio;
       event.stopPropagation();
-    },
-    goToSpreadsheet() {
-      this.$router.push("/spreadSheet");
     },
   },
 };

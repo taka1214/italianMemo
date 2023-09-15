@@ -66,4 +66,74 @@ class ApiItemController extends Controller
 
         return response()->json($items);
     }
+
+    public function getItem($id)
+    {
+        $item = Item::find($id);
+        if (!$item) {
+            return response()->json(['error' => 'Item not found.'], 404);
+        }
+        $item->voice_script_url = Storage::disk('s3')->url($item->voice_script);
+        return response()->json($item);
+    }
+
+    public function update(Request $request, $id)
+    {
+        // アイテムの取得
+        $item = Item::find($id);
+
+        // アイテムが存在しない場合のエラーレスポンス
+        if (!$item) {
+            return response()->json(['error' => 'Item not found.'], 404);
+        }
+
+        // バリデーション
+        $request->validate([
+            'italian' => 'required',
+            'japanese' => 'required',
+            'voice_script' => 'nullable|file|mimes:mp3,wav,m4a,ogg|max:8000',
+            'memo' => 'nullable',
+            'category' => 'required|in:spreadsheet,kentei'
+        ]);
+
+        // ボイススクリプトのアップロード処理
+        if ($request->hasFile('voice_script')) {
+            if ($item->voice_script) {
+                Storage::disk('s3')->delete($item->voice_script);
+            }
+
+            $voiceScriptPath = $request->file('voice_script')->store('voice_scripts', 's3');
+            $item->voice_script = $voiceScriptPath;
+        }
+
+        // 他のフィールドの更新
+        $item->italian = $request->input('italian');
+        $item->japanese = $request->input('japanese');
+        $item->memo = $request->input('memo');
+        $item->category = $request->input('category');
+
+        // データの保存
+        $item->save();
+
+        // 成功レスポンスの返却
+        return response()->json(['success' => 'Item updated successfully.']);
+    }
+
+    public function delete($id)
+    {
+        $item = Item::find($id);
+
+        if (!$item) {
+            return response()->json(['error' => 'Item not found.'], 404);
+        }
+
+        // S3からvoice_scriptを削除するロジック
+        if ($item->voice_script) {
+            Storage::disk('s3')->delete($item->voice_script);
+        }
+
+        $item->delete();
+
+        return response()->json(['message' => 'Item successfully deleted.'], 200);
+    }
 }

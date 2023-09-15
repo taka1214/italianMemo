@@ -3,13 +3,19 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="d-flex justify-content-between">
-            <button @click="currentComponent = 'Spreadsheet'">
-              spreadsheet用
-            </button>
-            <button @click="currentComponent = 'Kentei'">検定用</button>
+          <router-link
+            v-if="showRegisterButton"
+            to="/create"
+            class="btn btn-primary"
+            >新規登録</router-link>
+          <div class="d-flex justify-content-between py-2 px-2">
+            <button @click="showSpreadsheet">spreadsheet用</button>
+            <button @click="showKentei">検定用</button>
           </div>
-          <component v-if="currentComponent" :is="currentComponent"></component>
+          <component
+            v-if="currentComponentName"
+            :is="currentComponentName"
+          ></component>
           <router-view v-else></router-view>
         </div>
       </div>
@@ -24,33 +30,41 @@ import Kentei from "./Kentei.vue";
 export default {
   data() {
     return {
-      currentComponent: null,
+      currentComponentName: null,
     };
+  },
+  computed: {
+    showRegisterButton() {
+      return (
+        this.$route.path === "/spreadSheet" || this.$route.path === "/kentei"
+      );
+    },
   },
   methods: {
     showSpreadsheet() {
-      this.currentComponent = "Spreadsheet";
+      this.currentComponentName = "Spreadsheet";
+      this.$router.push("/spreadSheet");
     },
     showKentei() {
-      this.currentComponent = "Kentei";
+      this.currentComponentName = "Kentei";
+      this.$router.push("/kentei");
     },
     setCurrentComponentBasedOnRoute() {
-      // URLのパスに応じてcurrentComponentを設定
       switch (this.$route.path) {
         case "/":
         case "/spreadSheet":
-          this.currentComponent = "Spreadsheet";
+          this.currentComponentName = "Spreadsheet";
           break;
         case "/kentei":
-          this.currentComponent = "Kentei";
+          this.currentComponentName = "Kentei";
           break;
         default:
-          this.currentComponent = null;
+          this.currentComponentName = null;
       }
     },
   },
   watch: {
-    $route: function (to, from) {
+    $route(to, from) {
       this.setCurrentComponentBasedOnRoute();
     },
   },

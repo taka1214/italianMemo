@@ -1,15 +1,24 @@
 <template>
   <div>
-    <button @click="goToShuffle">シャッフル</button>
-    <div v-for="item in items" :key="item.id">
-      {{ item.italian }}
-      {{ item.japanese }}
-      <button @click="playVoiceScript(item.voice_script_url, $event)">
-        音声
-      </button>
+    <button @click="goToShuffle" class="mb-3 btn btn-info">シャッフル</button>
+    <div
+      v-for="item in items"
+      :key="item.id"
+      class="d-flex justify-content-between align-items-start mb-2"
+    >
+      <div @click="editItem(item.id)" class="text-left px-2">
+        <div>{{ item.italian }}</div>
+        <div>{{ item.japanese }}</div>
+      </div>
+      <div class="ml-auto px-2">
+        <button @click="playVoiceScript(item.voice_script_url, $event)">
+          音声
+        </button>
+      </div>
     </div>
   </div>
 </template>
+  
 
 <script>
 import axios from "axios";
@@ -56,6 +65,9 @@ export default {
     },
     goToShuffle() {
       this.$router.push("/shuffle");
+    },
+    editItem(itemId) {
+      this.$router.push(`/edit/${itemId}`);
     },
   },
 };

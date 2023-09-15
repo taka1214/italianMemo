@@ -1,35 +1,95 @@
 <template>
   <div>
-    <h1>アイテムの作成</h1>
+    <h1>Iscrizione</h1>
     <form @submit.prevent="createItem">
-      <div>
-        <label>Italian:</label>
-        <input v-model="newItem.italian" type="text" required />
+      <!-- イタリア語 -->
+      <div class="mb-3 d-flex justify-content-center">
+        <textarea
+          v-model="newItem.italian"
+          placeholder="Italiano"
+          class="form-control"
+          style="width: 90%"
+          rows="5"
+          required
+        ></textarea>
       </div>
 
-      <div>
-        <label>Japanese:</label>
-        <input v-model="newItem.japanese" type="text" required />
+      <!-- 日本語 -->
+      <div class="mb-3 d-flex justify-content-center">
+        <textarea
+          v-model="newItem.japanese"
+          placeholder="giapponese"
+          class="form-control"
+          style="width: 90%"
+          rows="5"
+          required
+        ></textarea>
       </div>
 
-      <div>
-        <label>Voice Script:</label>
-        <input ref="voiceScriptFile" type="file">
+      <!-- メモ -->
+      <div class="mb-3">
+        <div class="d-flex align-items-center mb-2">
+          <label class="me-1 mx-2">メモ</label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            v-model="memoChecked"
+          />
+        </div>
+        <div class="d-flex justify-content-center">
+          <textarea
+            v-model="newItem.memo"
+            :disabled="!memoChecked"
+            class="form-control"
+            style="width: 90%"
+            rows="5"
+          ></textarea>
+        </div>
       </div>
 
-      <div>
-        <label>Memo:</label>
-        <textarea v-model="newItem.memo"></textarea>
+      <!-- 音声 -->
+      <div class="mb-3">
+        <div class="d-flex mb-2">
+          <!-- Hidden actual input -->
+          <input
+            ref="voiceScriptFile"
+            type="file"
+            @change="updateFileName"
+            class="d-none"
+            id="fileInput"
+          />
+          <!-- Custom button -->
+          <button @click="triggerFileInput" class="btn btn-primary mx-2">
+            音声ファイル
+          </button>
+        </div>
+        <!-- Display selected file name -->
+        <span v-if="selectedFileName">{{ selectedFileName }}</span>
       </div>
 
-      <div>
-        <label>Category:</label>
-        <input type="radio" v-model="newItem.category" value="spreadsheet" />
-        Spreadsheet
-        <input type="radio" v-model="newItem.category" value="kentei" /> Kentei
+      <!-- ラジオボタン -->
+      <div class="mb-3 d-flex align-items-center mx-2">
+        <div class="form-check me-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            v-model="newItem.category"
+            value="spreadsheet"
+          />
+          <label class="form-check-label">Spreadsheet</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            v-model="newItem.category"
+            value="kentei"
+          />
+          <label class="form-check-label">検定</label>
+        </div>
       </div>
 
-      <button type="submit">登録</button>
+      <button type="submit" class="btn btn-primary">登録</button>
     </form>
   </div>
 </template>
@@ -47,6 +107,8 @@ export default {
         memo: "",
         category: "",
       },
+      memoChecked: false,
+      selectedFileName: "",
     };
   },
   methods: {
@@ -54,20 +116,25 @@ export default {
       const formData = new FormData();
       formData.append("italian", this.newItem.italian);
       formData.append("japanese", this.newItem.japanese);
-      formData.append("voice_script", this.$refs.voiceScriptFile.files[0]); 
+      formData.append("voice_script", this.$refs.voiceScriptFile.files[0]);
       formData.append("memo", this.newItem.memo);
       formData.append("category", this.newItem.category);
 
       try {
-        const response = await axios.post("/api/items", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.post("/api/items", formData);
         console.log("Item created:", response.data);
-        this.$router.push("/"); 
+        this.$router.push("/");
       } catch (error) {
         console.error("Error creating the item:", error);
+      }
+    },
+
+    triggerFileInput() {
+      this.$refs.voiceScriptFile.click();
+    },
+    updateFileName(event) {
+      if (event.target.files.length > 0) {
+        this.selectedFileName = event.target.files[0].name;
       }
     },
   },
