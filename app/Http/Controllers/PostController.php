@@ -27,9 +27,9 @@ class PostController extends Controller
         $request->validate([
             'italian' => 'required',
             'japanese' => 'required',
-            'voice_script' => 'required|file|mimes:mp3,wav,ogg,m4a|max:8000',
+            'voice_script' => 'nullable|file|mimes:mp3,wav,ogg,m4a|max:8000',
             'memo' => 'nullable',
-            'memo' => 'required',
+            // 'memo' => 'required',
         ]);
 
         // S3にファイルを保存

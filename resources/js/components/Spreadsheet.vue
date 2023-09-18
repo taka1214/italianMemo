@@ -2,19 +2,26 @@
   <div>
     <button @click="goToShuffle" class="mb-3 btn btn-info">シャッフル</button>
     <div
-      v-for="item in items"
+      v-for="item in paginatedItems"
       :key="item.id"
       class="d-flex justify-content-between align-items-start mb-2"
     >
       <div @click="editItem(item.id)" class="text-left px-2">
-        <div class="text-left-class">{{ truncateText(item.italian) }}</div>
-        <div class="text-left-class">{{ truncateJapaneseText(item.japanese) }}</div>
+        <div class="text-left-class text-truncate">{{ item.italian }}</div>
+        <div class="text-left-class text-truncate">{{ item.japanese }}</div>
       </div>
       <div class="ml-auto px-2">
         <button @click="playVoiceScript(item.voice_script_url, $event)">
           音声
         </button>
       </div>
+    </div>
+    <div v-if="items.length > itemsPerPage">
+      <button @click="previousPage" :disabled="currentPage == 1">前へ</button>
+      <span class="mx-3">{{ currentPage }} / {{ totalPages }}</span>
+      <button @click="nextPage" :disabled="currentPage == totalPages">
+        次へ
+      </button>
     </div>
   </div>
 </template>
@@ -27,10 +34,22 @@ export default {
     return {
       items: [],
       currentAudio: null, // 現在再生中のオーディオオブジェクトを保持するためのデータ
+      currentPage: 1, // 現在のページ
+      itemsPerPage: 10, // 1ページあたりのアイテム数
     };
   },
   mounted() {
     this.fetchData();
+  },
+  computed: {
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.items.slice(start, end);
+    },
+    totalPages() {
+      return Math.ceil(this.items.length / this.itemsPerPage);
+    },
   },
   methods: {
     fetchData() {
@@ -68,17 +87,15 @@ export default {
     editItem(itemId) {
       this.$router.push(`/edit/${itemId}`);
     },
-    truncateText(text) {
-      if (text.length > 35) {
-        return text.substring(0, 35) + "...";
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
       }
-      return text;
     },
-    truncateJapaneseText(text) {
-      if (text.length > 17) {
-        return text.substring(0, 17) + "...";
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
       }
-      return text;
     },
   },
 };
@@ -87,5 +104,6 @@ export default {
 <style scoped>
 .text-left-class {
   text-align: left;
+  max-width: 280px;
 }
 </style>

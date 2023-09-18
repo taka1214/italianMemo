@@ -16,7 +16,7 @@
     </div>
     @endif
     <section class="text-gray-600 body-font">
-      <div class="container">
+      <div>
         <div id="vue">
           <App></App>
         </div>

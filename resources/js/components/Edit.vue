@@ -4,26 +4,26 @@
     <form @submit.prevent="updateItem">
       <!-- イタリア語 -->
       <div class="mb-3 d-flex justify-content-center">
-        <input
+        <textarea
           v-model="currentItem.italian"
           type="text"
           required
           class="form-control"
           rows="5"
           style="width: 90%"
-        />
+        ></textarea>
       </div>
 
       <!-- 日本語 -->
       <div class="mb-3 d-flex justify-content-center">
-        <input
+        <textarea
           v-model="currentItem.japanese"
           type="text"
           rows="5"
           required
           class="form-control"
           style="width: 90%"
-        />
+        ></textarea>
       </div>
 
       <!-- メモ -->
