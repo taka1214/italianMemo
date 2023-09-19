@@ -8,9 +8,10 @@
             to="/create"
             class="btn btn-primary"
             >新規登録</router-link>
-          <div class="d-flex justify-content-between py-2 px-2">
-            <button @click="showSpreadsheet">spreadsheet用</button>
-            <button @click="showKentei">検定用</button>
+          <div class="d-flex flex-column align-items-start py-2 px-2">
+            <button class="my-1" @click="showDataFromSpreadsheet">spreadsheetからデータ取得用</button>
+            <button class="my-1" @click="showSpreadsheet">spreadsheet用</button>
+            <button class="my-1" @click="showKentei">検定用</button>
           </div>
           <component
             v-if="currentComponentName"
@@ -26,6 +27,7 @@
 <script>
 import Spreadsheet from "./Spreadsheet.vue";
 import Kentei from "./Kentei.vue";
+import DataFromSpreadsheet from "./DataFromSpreadsheet.vue";
 
 export default {
   data() {
@@ -41,6 +43,10 @@ export default {
     },
   },
   methods: {
+    showDataFromSpreadsheet() {
+      this.currentComponentName = "DataFromSpreadsheet";
+      this.$router.push("/dataFromSpreadsheet");
+    },
     showSpreadsheet() {
       this.currentComponentName = "Spreadsheet";
       this.$router.push("/spreadSheet");
@@ -52,6 +58,9 @@ export default {
     setCurrentComponentBasedOnRoute() {
       switch (this.$route.path) {
         case "/":
+        case "/dataFromSpreadsheet":
+          this.currentComponentName = "DataFromSpreadsheet";
+          break;
         case "/spreadSheet":
           this.currentComponentName = "Spreadsheet";
           break;
@@ -74,6 +83,7 @@ export default {
   components: {
     Spreadsheet,
     Kentei,
+    DataFromSpreadsheet,
   },
 };
 </script>

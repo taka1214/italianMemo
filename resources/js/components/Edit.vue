@@ -49,6 +49,10 @@
           Your browser does not support the audio element.
         </audio>
       </div>
+      <!-- 音声ファイルがない場合のメッセージ -->
+      <div v-else class="mb-3 d-flex justify-content-center">
+        音声ファイルなし
+      </div>
 
       <!-- 音声 -->
       <div class="mb-3">
@@ -62,7 +66,13 @@
             id="fileInput"
           />
           <!-- Custom button -->
-          <button @click="triggerFileInput" class="btn btn-primary mx-2" type="button">音声ファイル</button>
+          <button
+            @click="triggerFileInput"
+            class="btn btn-primary mx-2"
+            type="button"
+          >
+            音声ファイル
+          </button>
         </div>
         <!-- Display selected file name -->
         <span v-if="selectedFileName">{{ selectedFileName }}</span>

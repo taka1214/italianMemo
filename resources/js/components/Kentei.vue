@@ -11,9 +11,10 @@
         <div class="text-left-class text-truncate">{{ item.japanese }}</div>
       </div>
       <div class="ml-auto px-2">
-        <button @click="playVoiceScript(item.voice_script_url, $event)">
+        <button v-if="item.voice_script_url" @click="playVoiceScript(item.voice_script_url, $event)">
           音声
         </button>
+        <span v-else>なし</span>
       </div>
     </div>
   </div>

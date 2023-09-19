@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Storage;
+use Google_Client;
+use Google_Service_Sheets;
 
 class ApiItemController extends Controller
 {
@@ -73,7 +75,12 @@ class ApiItemController extends Controller
         if (!$item) {
             return response()->json(['error' => 'Item not found.'], 404);
         }
-        $item->voice_script_url = Storage::disk('s3')->url($item->voice_script);
+        if ($item->voice_script === null) {
+            $item->voice_script_url = null;
+        } else {
+            // それ以外の場合は、voice_script に関する処理を行う
+            $item->voice_script_url = Storage::disk('s3')->url($item->voice_script);// 何らかの処理や変換
+        }
         return response()->json($item);
     }
 

@@ -23,13 +23,12 @@ class PostController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'italian' => 'required',
             'japanese' => 'required',
             'voice_script' => 'nullable|file|mimes:mp3,wav,ogg,m4a|max:8000',
             'memo' => 'nullable',
-            // 'memo' => 'required',
         ]);
 
         // S3にファイルを保存

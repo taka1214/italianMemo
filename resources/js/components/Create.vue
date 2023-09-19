@@ -116,7 +116,9 @@ export default {
       const formData = new FormData();
       formData.append("italian", this.newItem.italian);
       formData.append("japanese", this.newItem.japanese);
-      formData.append("voice_script", this.$refs.voiceScriptFile.files[0]);
+      if (this.$refs.voiceScriptFile.files[0]) {
+        formData.append("voice_script", this.$refs.voiceScriptFile.files[0]);
+      }
       formData.append("memo", this.newItem.memo);
       formData.append("category", this.newItem.category);
 

@@ -5,6 +5,8 @@ import Kentei from './components/Kentei.vue';
 import ShuffleKentei from './components/ShuffleKentei.vue';
 import Create from './components/Create.vue';
 import Edit from './components/Edit.vue';
+import DataFromSpreadsheet from '@/components/DataFromSpreadsheet.vue';
+import DataFromSpreadsheetShuffle from '@/components/DataFromSpreadsheetShuffle.vue';
 
 const routes = [
   {
@@ -40,7 +42,17 @@ const routes = [
     path: '/edit/:id',
     name: 'Edit',
     component: Edit
-  }
+  },
+  {
+    path: '/dataFromSpreadsheet',
+    name: 'DataFromSpreadsheet',
+    component: DataFromSpreadsheet
+  },
+  {
+    path: '/dataFromSpreadsheetShuffle',
+    name: 'DataFromSpreadsheetShuffle',
+    component: DataFromSpreadsheetShuffle
+  },
 ];
 
 const router = createRouter({
