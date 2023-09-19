@@ -43,6 +43,7 @@ export default {
     nextItem() {
       if (this.currentIndex < this.shuffledData.length - 1) {
         this.currentIndex++;
+        this.isVisible = false;
       }
     },
     navigateBack() {
