@@ -47,7 +47,7 @@ export default {
   methods: {
     async fetchSpreadsheetData() {
       const GAS_URL =
-        "https://script.google.com/macros/s/AKfycbyYMw077q8ntDcb_rBChfhmdn8NtTPnQjAkas7FrFLu__yXjlOY_LNs_ohMjEe2fb_ZdQ/exec";
+        "https://script.google.com/macros/s/AKfycbw2xRT8vAbYSJncOG7axRF-1p2VqZAuuHC9rWTtr9PdbyY6SmBXqEgvBRkF9rvkg4t-KQ/exec";
 
       try {
         const response = await fetch(GAS_URL);
