@@ -7,10 +7,10 @@
       class="row-container d-flex justify-content-between align-items-start mb-2"
     >
       <div class="vertical-values px-2">
-        <div class="text-truncate">{{ row[0] }}</div>
         <div class="text-truncate">{{ row[1] }}</div>
+        <div class="text-truncate">{{ row[2] }}</div>
       </div>
-      <div class="horizontal-value ml-auto px-2 text-truncate">{{ row[2] }}</div>
+      <div class="horizontal-value ml-auto px-2 text-truncate">{{ row[3] }}</div>
     </div>
     <div class="pagination-buttons mt-3 d-flex justify-content-center">
       <button @click="prevPage" :disabled="currentPage === 1">戻る</button>
