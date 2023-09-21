@@ -2,11 +2,11 @@
   <div>
     <div class="item-container" v-if="shuffledData[currentIndex]">
       <!-- A列とB列の表示 -->
-      <div class="my-3">{{ shuffledData[currentIndex][0] }}</div>
       <div class="my-3">{{ shuffledData[currentIndex][1] }}</div>
+      <div class="my-3">{{ shuffledData[currentIndex][2] }}</div>
       <!-- C列の表示。初期は非表示 -->
-      <div class="mt-3" v-if="isVisible">{{ shuffledData[currentIndex][2] }}</div>
-      <div v-if="isVisible">{{ shuffledData[currentIndex][3] }}</div>
+      <div class="mt-3" v-if="isVisible">{{ shuffledData[currentIndex][3] }}</div>
+      <div v-if="isVisible">{{ shuffledData[currentIndex][4] }}</div>
       <!-- ボタンをクリックするとC列の内容をトグルする -->
       <button class="mt-3" @click="toggleVisibility">
         {{ isVisible ? "隠す" : "答え" }}
