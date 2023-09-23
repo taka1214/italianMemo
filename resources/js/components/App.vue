@@ -2,16 +2,53 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="card custom-card">
-          <router-link
-            v-if="showRegisterButton"
-            to="/create"
-            class="btn btn-primary"
-            >新規登録</router-link>
-          <div class="d-flex flex-column align-items-start py-2 px-2">
-            <button class="my-1" @click="showDataFromSpreadsheet">spreadsheetからデータ取得用</button>
-            <button class="my-1" @click="showSpreadsheet">spreadsheet用</button>
-            <button class="my-1" @click="showKentei">検定用</button>
+        <div class="">
+          <div
+            class="d-flex flex-column align-items-start py-2 px-2 text-gray-500 bgColor"
+          >
+            <!-- ハンバーガーアイコンとドロップダウンメニュー -->
+            <div class="d-flex d-md-none">
+              <button
+                class="btn btn-secondary dropdown-toggle bg-white border border-light"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="color: gray;"
+              >
+                ☰
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button class="dropdown-item" @click="showDataFromSpreadsheet">
+                  spreadsheetからデータ取得用
+                </button>
+                <button class="dropdown-item" @click="showSpreadsheet">
+                  spreadsheet用
+                </button>
+                <button class="dropdown-item" @click="showKentei">
+                  検定用
+                </button>
+              </div>
+            </div>
+
+            <!-- 通常のボタン（デスクトップサイズでのみ表示） -->
+            <div class="d-none d-md-flex justify-content-around w-100">
+              <button
+                class="my-1 px-3 border rounded-lg"
+                @click="showDataFromSpreadsheet"
+              >
+                spreadsheetからデータ取得用
+              </button>
+              <button
+                class="my-1 px-3 border rounded-lg"
+                @click="showSpreadsheet"
+              >
+                spreadsheet用
+              </button>
+              <button class="my-1 px-3 border rounded-lg" @click="showKentei">
+                検定用
+              </button>
+            </div>
           </div>
           <component
             v-if="currentComponentName"
@@ -87,3 +124,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.bgColor {
+  background-color: rgb(242, 248, 255);
+}
+</style>

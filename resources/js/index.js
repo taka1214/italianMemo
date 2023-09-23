@@ -7,6 +7,7 @@ import Create from './components/Create.vue';
 import Edit from './components/Edit.vue';
 import DataFromSpreadsheet from '@/components/DataFromSpreadsheet.vue';
 import DataFromSpreadsheetShuffle from '@/components/DataFromSpreadsheetShuffle.vue';
+import EditSpreadsheet from './components/EditSpreadsheet.vue';
 
 const routes = [
   {
@@ -52,6 +53,11 @@ const routes = [
     path: '/dataFromSpreadsheetShuffle',
     name: 'DataFromSpreadsheetShuffle',
     component: DataFromSpreadsheetShuffle
+  },
+  {
+    path: '/editSpreadsheet/:id',
+    name: 'EditSpreadsheet',
+    component: EditSpreadsheet
   },
 ];
 

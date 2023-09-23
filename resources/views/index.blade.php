@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-500 leading-tight">
+    <h2 class=" text-xl text-gray-500 leading-tight py-5">
       自分で作るイタリア語帳
     </h2>
   </x-slot>

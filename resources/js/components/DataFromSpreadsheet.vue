@@ -1,10 +1,13 @@
 <template>
   <div>
-    <button @click="shuffleAndNavigate" class="mb-3 btn btn-info">シャッフル</button>
+    <div class="bgColor">
+      <button @click="shuffleAndNavigate" class="mb-4 px-3 border rounded-4 text-gray-500 bg-white">シャッフル</button>
+    </div>
     <div
       v-for="row in paginatedData"
       :key="row[0]"
-      class="row-container d-flex justify-content-between align-items-start mb-2"
+      class="row-container d-flex justify-content-between align-items-start my-3"
+      @click="toEditSpreadsheet(row[0])"
     >
       <div class="vertical-values px-2">
         <div class="text-truncate">{{ row[1] }}</div>
@@ -70,6 +73,9 @@ export default {
     },
     shuffleAndNavigate() {
       this.$router.push("/dataFromSpreadsheetShuffle");
+    },
+    toEditSpreadsheet(id) {
+      this.$router.push(`/editSpreadsheet/${id}`);
     }
   },
 };
@@ -105,5 +111,8 @@ export default {
 .pagination-buttons span {
   font-size: 1.1rem;
   font-weight: bold;
+}
+.bgColor {
+  background-color: rgb(242, 248, 255);
 }
 </style>
