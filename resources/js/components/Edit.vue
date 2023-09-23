@@ -68,7 +68,7 @@
           <!-- Custom button -->
           <button
             @click="triggerFileInput"
-            class="btn btn-primary mx-2"
+            class="px-2 py-1 border rounded-3 border-2 mx-2"
             type="button"
           >
             音声ファイル
@@ -100,8 +100,10 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">更新</button>
-      <button @click.prevent="deleteItem" class="btn btn-danger">削除</button>
+      <div class="d-flex flex-column align-items-center">
+        <button type="submit" class="py-1 px-4 my-3 border rounded-3 border-1">更新</button>
+        <button @click.prevent="deleteItem" class="py-1 px-4 border rounded-3 border-danger">削除</button>
+      </div>
     </form>
   </div>
 </template>

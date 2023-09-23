@@ -48,7 +48,7 @@
           style="width: 90%"
         ></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">更新</button>
+      <button type="submit" class="py-1 px-4 my-3 border rounded-3 border-1">更新</button>
     </form>
     <button @click="back()" class="my-2">戻る</button>
   </div>
