@@ -6,6 +6,14 @@
           <div
             class="d-flex flex-column align-items-start py-2 px-2 text-gray-500 bgColor"
           >
+            <div class="d-flex justify-content-end w-100">
+              <button
+                @click="toCreate"
+                class="my-2 px-3 border rounded-lg bg-white"
+              >
+                新規登録
+              </button>
+            </div>
             <!-- ハンバーガーアイコンとドロップダウンメニュー -->
             <div class="d-flex d-md-none">
               <button
@@ -14,7 +22,7 @@
                 id="dropdownMenuButton"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style="color: gray;"
+                style="color: gray"
               >
                 ☰
               </button>
@@ -34,18 +42,21 @@
             <!-- 通常のボタン（デスクトップサイズでのみ表示） -->
             <div class="d-none d-md-flex justify-content-around w-100">
               <button
-                class="my-1 px-3 border rounded-lg"
+                class="my-1 px-3 border rounded-lg bg-white"
                 @click="showDataFromSpreadsheet"
               >
                 spreadsheetからデータ取得用
               </button>
               <button
-                class="my-1 px-3 border rounded-lg"
+                class="my-1 px-3 border rounded-lg bg-white"
                 @click="showSpreadsheet"
               >
                 spreadsheet用
               </button>
-              <button class="my-1 px-3 border rounded-lg" @click="showKentei">
+              <button
+                class="my-1 px-3 border rounded-lg bg-white"
+                @click="showKentei"
+              >
                 検定用
               </button>
             </div>
@@ -80,6 +91,9 @@ export default {
     },
   },
   methods: {
+    toCreate() {
+      this.$router.push("/create");
+    },
     showDataFromSpreadsheet() {
       this.currentComponentName = "DataFromSpreadsheet";
       this.$router.push("/dataFromSpreadsheet");

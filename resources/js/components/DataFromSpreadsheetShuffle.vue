@@ -1,13 +1,10 @@
 <template>
   <div>
     <div class="item-container" v-if="shuffledData[currentIndex]">
-      <!-- A列とB列の表示 -->
+      <div class="my-3">{{ shuffledData[currentIndex][0] }}</div>
       <div class="my-3">{{ shuffledData[currentIndex][1] }}</div>
-      <div class="my-3">{{ shuffledData[currentIndex][2] }}</div>
-      <!-- C列の表示。初期は非表示 -->
-      <div class="mt-3" v-if="isVisible">{{ shuffledData[currentIndex][3] }}</div>
-      <div v-if="isVisible">{{ shuffledData[currentIndex][4] }}</div>
-      <!-- ボタンをクリックするとC列の内容をトグルする -->
+      <div class="mt-3" v-if="isVisible">{{ shuffledData[currentIndex][2] }}</div>
+      <div v-if="isVisible">{{ shuffledData[currentIndex][3] }}</div>
       <button class="mt-3" @click="toggleVisibility">
         {{ isVisible ? "隠す" : "答え" }}
       </button>
@@ -25,7 +22,6 @@ export default {
     return {
       shuffledData: [],
       currentIndex: 0,
-      fetchDataFromSpreadsheet: [],
       isVisible: false,
     };
   },
@@ -49,25 +45,30 @@ export default {
     navigateBack() {
       this.$router.push("/dataFromSpreadsheet");
     },
+
     async fetchSpreadsheetData() {
-      const GAS_URL =
-        "https://script.google.com/macros/s/AKfycbw2xRT8vAbYSJncOG7axRF-1p2VqZAuuHC9rWTtr9PdbyY6SmBXqEgvBRkF9rvkg4t-KQ/exec";
+      const sheetId = "1804Jv1V8MRlk1UYi-fSfewHg6HsUUCIO26NGCYGr8Vs"; // あなたのスプレッドシートIDを指定
+      const apiKey = "AIzaSyCSLxIeQ-hyhETjXLYfQcrbeikTXPXgOpE"; // あなたのAPIキーを指定
+      const range = `時制(仮)!B1:E`; // 取得したい範囲を指定
+
+      const SHEETS_API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
 
       try {
-        const response = await fetch(GAS_URL);
+        const response = await fetch(SHEETS_API_URL);
         const result = await response.json();
-        this.fetchDataFromSpreadsheet = result.values;
-        this.shuffledData = this.shuffle(this.fetchDataFromSpreadsheet);
+        this.shuffledData = this.shuffle(result.values);
       } catch (error) {
         console.error("Error fetching data:", error);
-      }
+      } 
     },
+
     toggleVisibility() {
       this.isVisible = !this.isVisible;
     },
   },
 };
 </script>
+
 
 <style scoped>
 .item-container {

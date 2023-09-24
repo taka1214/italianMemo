@@ -28,7 +28,6 @@
 
       <!-- メモ -->
       <div class="mb-3">
-        <label class="me-1 mx-2">Memo:</label>
         <div class="d-flex justify-content-center">
           <textarea
             v-model="currentItem.memo"
@@ -42,7 +41,7 @@
       <!-- 音声プレーヤー -->
       <div
         v-if="currentItem.voice_script_url"
-        class="mb-3 d-flex justify-content-center"
+        class="my-4 d-flex justify-content-center"
       >
         <audio controls>
           <source :src="currentItem.voice_script_url" />
@@ -55,7 +54,7 @@
       </div>
 
       <!-- 音声 -->
-      <div class="mb-3">
+      <div class="my-4">
         <div class="d-flex mb-2">
           <!-- Hidden actual input -->
           <input
@@ -79,7 +78,7 @@
       </div>
 
       <!-- ラジオボタン -->
-      <div class="mb-3 d-flex align-items-center mx-2">
+      <div class="mx-2 my-4 d-flex align-items-center">
         <div class="form-check me-3">
           <input
             class="form-check-input"
