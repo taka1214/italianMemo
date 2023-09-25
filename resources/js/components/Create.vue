@@ -59,7 +59,7 @@
             id="fileInput"
           />
           <!-- Custom button -->
-          <button @click="triggerFileInput" class="btn btn-primary mx-2">
+          <button @click="triggerFileInput" class="px-2 py-1 border rounded-3 border-2 mx-2" type="button">
             音声ファイル
           </button>
         </div>
@@ -89,7 +89,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">登録</button>
+      <button type="submit" class="py-1 px-4 my-3 border rounded-3 border-1">登録</button>
     </form>
   </div>
 </template>

@@ -1,22 +1,26 @@
 <template>
   <div>
-    <button @click="shuffleItems">シャッフル</button>
+    <button @click="shuffleItems" class="my-5">再度シャッフル</button>
     <div v-if="shuffledItems.length">
-      <audio controls :key="currentItem.id" class="audio">
+      <audio controls :key="currentItem.id" class="audio my-3">
         <source :src="currentItem.voice_script_url" />
         Your browser does not support the audio element.
       </audio>
-      <div class="itemWrapper">
+      <div class="itemWrapper my-5">
         <button @click="toggleItalian" class="block-element-button">
           イタリア語
+          <span v-if="showItalian">▲</span>
+          <span v-else>▼</span>
         </button>
         <transition name="slide-fade">
           <div v-if="showItalian" class="block-element">
             {{ currentItem.italian }}
           </div>
         </transition>
-        <button @click="toggleJapanese" class="block-element-button">
+        <button @click="toggleJapanese" class="block-element-button mt-4">
           日本語
+          <span v-if="showJapanese">▲</span>
+          <span v-else>▼</span>
         </button>
         <transition name="slide-fade">
           <div v-if="showJapanese" class="block-element">
@@ -140,9 +144,6 @@ export default {
   /* color: #1d1d1d; */
   display: block;
   max-width: 200px;
-  padding: 0.2rem 0.5rem;
-  border-radius: 40px;
-  border: 1px solid #212529;
   text-align: center;
   background-color: #fff;
   transition: transform 0.2s;

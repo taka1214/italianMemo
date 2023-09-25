@@ -1,6 +1,6 @@
 <template>
   <div class="edit-spreadsheet">
-    <h2>編集画面</h2>
+    <h2>編集</h2>
 
     <!-- Form to edit the spreadsheet data -->
     <form @submit.prevent="updateSpreadsheetData">
