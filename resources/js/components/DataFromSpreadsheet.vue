@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="bgColor">
+      <p class="pt-2">イタリア語テスト</p>
       <button @click="shuffleAndNavigate" class="mb-4 px-3 border rounded-4 text-gray-500 bg-white">シャッフル</button>
     </div>
     <div

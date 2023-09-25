@@ -8,57 +8,35 @@
           >
             <div class="d-flex justify-content-end w-100">
               <button
-                @click="toCreate"
-                class="my-2 px-3 border rounded-lg bg-white"
+                @click="navigate"
+                class="my-2 px-3 border rounded-lg bg-white fs-small"
               >
-                新規登録
+                {{ buttonLabel }}
               </button>
             </div>
             <!-- ハンバーガーアイコンとドロップダウンメニュー -->
-            <div class="d-flex d-md-none">
+            <div class="d-flex">
               <button
-                class="btn btn-secondary dropdown-toggle bg-white border border-light"
+                class="btn btn-secondary dropdown-toggle bg-white border border-light fs-small"
                 type="button"
                 id="dropdownMenuButton"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
                 style="color: gray"
               >
-                ☰
+                カテゴリー
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <button class="dropdown-item" @click="showDataFromSpreadsheet">
-                  spreadsheetからデータ取得用
+                  Spreadsheetからのデータ
                 </button>
                 <button class="dropdown-item" @click="showSpreadsheet">
-                  spreadsheet用
+                  Spreadsheet用
                 </button>
                 <button class="dropdown-item" @click="showKentei">
                   検定用
                 </button>
               </div>
-            </div>
-
-            <!-- 通常のボタン（デスクトップサイズでのみ表示） -->
-            <div class="d-none d-md-flex justify-content-around w-100">
-              <button
-                class="my-1 px-3 border rounded-lg bg-white"
-                @click="showDataFromSpreadsheet"
-              >
-                spreadsheetからデータ取得用
-              </button>
-              <button
-                class="my-1 px-3 border rounded-lg bg-white"
-                @click="showSpreadsheet"
-              >
-                spreadsheet用
-              </button>
-              <button
-                class="my-1 px-3 border rounded-lg bg-white"
-                @click="showKentei"
-              >
-                検定用
-              </button>
             </div>
           </div>
           <component
@@ -81,7 +59,20 @@ export default {
   data() {
     return {
       currentComponentName: null,
+      buttonLabel: "新規登録",
     };
+  },
+  mounted() {
+    this.updateButtonBasedOnRoute(); // コンポーネントがマウントされたときにボタンのラベルと動作を更新
+  },
+  watch: {
+    "$route.path": "updateButtonBasedOnRoute", // ルートが変更されたときにも更新
+    $route(to, from) {
+      this.setCurrentComponentBasedOnRoute();
+    },
+  },
+  created() {
+    this.setCurrentComponentBasedOnRoute();
   },
   computed: {
     showRegisterButton() {
@@ -91,9 +82,46 @@ export default {
     },
   },
   methods: {
-    toCreate() {
-      this.$router.push("/create");
+    navigate() {
+      this.$router.push(this.targetRoute);
     },
+    updateButtonBasedOnRoute() {
+      const path = this.$route.path;
+
+      // /dataFromSpreadsheet, /dataFromSpreadsheetShuffle, /editSpreadsheet/:id の場合
+      if (
+        path === "/dataFromSpreadsheet" ||
+        path === "/dataFromSpreadsheetShuffle" ||
+        path.match(/^\/editSpreadsheet\/\d+/)
+      ) {
+        this.buttonLabel = "一覧画面";
+        this.targetRoute = "/dataFromSpreadsheet";
+      }
+      // /spreadSheet の場合
+      else if (path === "/spreadSheet") {
+        this.buttonLabel = "新規登録";
+        this.targetRoute = "/create";
+      }
+      // /shuffle, /edit/:id /create の場合
+      else if (path === "/shuffle" || path.match(/^\/edit\/\d+/) || path === "/create") {
+        this.buttonLabel = "一覧画面";
+        this.targetRoute = "/spreadSheet";
+      }
+      // /kentei の場合
+      else if (path === "/kentei") {
+        this.buttonLabel = "新規登録";
+        this.targetRoute = "/create";
+      }
+      // /shuffleKentei の場合
+      else if (path === "/shuffleKentei") {
+        this.buttonLabel = "一覧画面";
+        this.targetRoute = "/kentei";
+      } else {
+        this.buttonLabel = "新規登録"; // デフォルトの設定
+        this.targetRoute = "/create";
+      }
+    },
+
     showDataFromSpreadsheet() {
       this.currentComponentName = "DataFromSpreadsheet";
       this.$router.push("/dataFromSpreadsheet");
@@ -123,14 +151,6 @@ export default {
       }
     },
   },
-  watch: {
-    $route(to, from) {
-      this.setCurrentComponentBasedOnRoute();
-    },
-  },
-  created() {
-    this.setCurrentComponentBasedOnRoute();
-  },
   components: {
     Spreadsheet,
     Kentei,
@@ -142,5 +162,11 @@ export default {
 <style scoped>
 .bgColor {
   background-color: rgb(242, 248, 255);
+}
+.dropdown-item {
+  font-size: 0.9em
+}
+.fs-small {
+  font-size: 0.9em;
 }
 </style>
