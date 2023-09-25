@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Iscrizione</h1>
-    <form @submit.prevent="createItem">
+    <form @submit.prevent="createItem" class="fs-smaller">
       <!-- イタリア語 -->
       <div class="mb-3 d-flex justify-content-center">
         <textarea
@@ -142,3 +142,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.fs-smaller {
+  font-size: 0.9em;
+}
+.form-control {
+  font-size: 0.9em;
+}
+</style>

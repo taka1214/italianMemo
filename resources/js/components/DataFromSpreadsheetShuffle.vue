@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="item-container" v-if="shuffledData[currentIndex]">
+    <div class="item-container mt-4" v-if="shuffledData[currentIndex]">
       <div class="my-3">{{ shuffledData[currentIndex][0] }}</div>
       <div class="my-3">{{ shuffledData[currentIndex][1] }}</div>
       <div class="mt-3" v-if="isVisible">{{ shuffledData[currentIndex][2] }}</div>

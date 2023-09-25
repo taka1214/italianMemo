@@ -1,9 +1,9 @@
 <template>
   <div class="edit-spreadsheet">
-    <h2>編集</h2>
+    <h2>modificare</h2>
 
     <!-- Form to edit the spreadsheet data -->
-    <form @submit.prevent="updateSpreadsheetData">
+    <form @submit.prevent="updateSpreadsheetData" class="fs-smaller">
       <!-- You can structure this form based on the columns of your spreadsheet. -->
       <div class="mb-3 d-flex justify-content-center">
         <textarea
@@ -107,5 +107,11 @@ export default {
 /* Add your styles here */
 .form-group {
   margin-bottom: 20px;
+}
+.fs-smaller {
+  font-size: 0.9em;
+}
+.form-control {
+  font-size: 0.9em;
 }
 </style>

@@ -2,7 +2,15 @@
   <div>
     <div class="bgColor">
       <p class="pt-2">イタリア語テスト</p>
-      <button @click="shuffleAndNavigate" class="mb-4 px-3 border rounded-4 text-gray-500 bg-white">シャッフル</button>
+      <button
+        @click="shuffleAndNavigate"
+        class="mb-4 px-3 border rounded-4 text-gray-500 bg-white"
+      >
+        シャッフル
+      </button>
+      <div class="search-box my-2">
+        <input v-model="searchTerm" placeholder="キーワード検索..." class="form-control" />
+      </div>
     </div>
     <div
       v-for="row in paginatedData"
@@ -14,7 +22,9 @@
         <div class="text-truncate">{{ row[1] }}</div>
         <div class="text-truncate">{{ row[2] }}</div>
       </div>
-      <div class="horizontal-value ml-auto px-2 text-truncate">{{ row[3] }}</div>
+      <div class="horizontal-value ml-auto px-2 text-truncate">
+        {{ row[3] }}
+      </div>
     </div>
     <div class="pagination-buttons mt-3 d-flex justify-content-center">
       <button @click="prevPage" :disabled="currentPage === 1">戻る</button>
@@ -33,6 +43,10 @@ export default {
       fetchDataFromSpreadsheet: [],
       perPage: 20, // 1ページに表示するアイテム数
       currentPage: 1, // 現在のページ番号
+      sheetId: "1804Jv1V8MRlk1UYi-fSfewHg6HsUUCIO26NGCYGr8Vs", // スプレッドシートIDを指定
+      apiKey: "AIzaSyCSLxIeQ-hyhETjXLYfQcrbeikTXPXgOpE", // APIキーを指定
+      range: `時制(仮)!A1:E`, // 取得したい範囲を指定
+      searchTerm: "", // 検索文字列のためのデータプロパティ
     };
   },
   mounted() {
@@ -40,21 +54,30 @@ export default {
   },
   computed: {
     paginatedData() {
+      const filteredData = this.filteredData;
       const start = (this.currentPage - 1) * this.perPage;
       const end = start + this.perPage;
-      return this.fetchDataFromSpreadsheet.slice(start, end);
+      return filteredData.slice(start, end);
+    },
+    filteredData() {
+      if (!this.searchTerm) return this.fetchDataFromSpreadsheet;
+
+      return this.fetchDataFromSpreadsheet.filter((row) => {
+        return row.some((cell) =>
+          cell.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
+      });
     },
     totalPages() {
-      return Math.ceil(this.fetchDataFromSpreadsheet.length / this.perPage);
+      return Math.ceil(this.filteredData.length / this.perPage);
     },
   },
   methods: {
     async fetchSpreadsheetData() {
-      const GAS_URL =
-        "https://script.google.com/macros/s/AKfycbw2xRT8vAbYSJncOG7axRF-1p2VqZAuuHC9rWTtr9PdbyY6SmBXqEgvBRkF9rvkg4t-KQ/exec";
+      const SHEETS_API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${this.sheetId}/values/${this.range}?key=${this.apiKey}`;
 
       try {
-        const response = await fetch(GAS_URL);
+        const response = await fetch(SHEETS_API_URL);
         const result = await response.json();
         this.fetchDataFromSpreadsheet = result.values;
       } catch (error) {
@@ -77,7 +100,7 @@ export default {
     },
     toEditSpreadsheet(id) {
       this.$router.push(`/editSpreadsheet/${id}`);
-    }
+    },
   },
 };
 </script>
@@ -94,11 +117,13 @@ export default {
   flex-direction: column;
   text-align: left;
   max-width: 280px;
+  font-size: 0.9em;
 }
 
 .horizontal-value {
   text-align: right;
   max-width: 100px;
+  font-size: 0.9em;
 }
 .pagination-buttons button {
   margin: 0 10px;
@@ -115,5 +140,9 @@ export default {
 }
 .bgColor {
   background-color: rgb(242, 248, 255);
+  font-size: 0.8em;
+}
+.form-control::placeholder {
+  font-size: 0.8em;
 }
 </style>

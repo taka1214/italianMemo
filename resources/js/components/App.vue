@@ -24,16 +24,23 @@
                 aria-expanded="false"
                 style="color: gray"
               >
-                カテゴリー
+                {{ currentCategory }}
+                <!-- ここに現在のカテゴリー名を表示 -->
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button class="dropdown-item" @click="showDataFromSpreadsheet">
+                <button
+                  class="dropdown-item"
+                  @click="selectCategory('Spreadsheetからのデータ')"
+                >
                   Spreadsheetからのデータ
                 </button>
-                <button class="dropdown-item" @click="showSpreadsheet">
+                <button
+                  class="dropdown-item"
+                  @click="selectCategory('Spreadsheet用')"
+                >
                   Spreadsheet用
                 </button>
-                <button class="dropdown-item" @click="showKentei">
+                <button class="dropdown-item" @click="selectCategory('検定用')">
                   検定用
                 </button>
               </div>
@@ -60,6 +67,7 @@ export default {
     return {
       currentComponentName: null,
       buttonLabel: "新規登録",
+      currentCategory: "Spreadsheetからのデータ",
     };
   },
   mounted() {
@@ -103,7 +111,11 @@ export default {
         this.targetRoute = "/create";
       }
       // /shuffle, /edit/:id /create の場合
-      else if (path === "/shuffle" || path.match(/^\/edit\/\d+/) || path === "/create") {
+      else if (
+        path === "/shuffle" ||
+        path.match(/^\/edit\/\d+/) ||
+        path === "/create"
+      ) {
         this.buttonLabel = "一覧画面";
         this.targetRoute = "/spreadSheet";
       }
@@ -150,6 +162,21 @@ export default {
           this.currentComponentName = null;
       }
     },
+    selectCategory(category) {
+      this.currentCategory = category; // カテゴリー名を更新
+      // カテゴリーに応じた処理
+      switch (category) {
+        case "Spreadsheetからのデータ":
+          this.showDataFromSpreadsheet();
+          break;
+        case "Spreadsheet用":
+          this.showSpreadsheet();
+          break;
+        case "検定用":
+          this.showKentei();
+          break;
+      }
+    },
   },
   components: {
     Spreadsheet,
@@ -164,7 +191,7 @@ export default {
   background-color: rgb(242, 248, 255);
 }
 .dropdown-item {
-  font-size: 0.9em
+  font-size: 0.9em;
 }
 .fs-small {
   font-size: 0.9em;
