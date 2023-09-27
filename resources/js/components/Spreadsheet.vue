@@ -38,7 +38,7 @@
     </div>
     <div v-if="filteredData.length > itemsPerPage">
       <button @click="previousPage" :disabled="currentPage == 1">前へ</button>
-      <span class="mx-3">{{ currentPage }} / {{ totalPages }}</span>
+      <span class="mx-3 py-2">{{ currentPage }} / {{ totalPages }}</span>
       <button @click="nextPage" :disabled="currentPage == totalPages">
         次へ
       </button>
@@ -56,7 +56,7 @@ export default {
       items: [],
       currentAudio: null, // 現在再生中のオーディオオブジェクトを保持するためのデータ
       currentPage: 1, // 現在のページ
-      itemsPerPage: 10, // 1ページあたりのアイテム数
+      itemsPerPage: 15, // 1ページあたりのアイテム数
       searchKeyword: '', // キーワード検索用のデータプロパティ
     };
   },
@@ -147,4 +147,5 @@ export default {
 .form-control::placeholder {
   font-size: 0.8em;
 }
+
 </style>

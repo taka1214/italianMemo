@@ -26,9 +26,9 @@
         {{ row[3] }}
       </div>
     </div>
-    <div class="pagination-buttons mt-3 d-flex justify-content-center">
+    <div class="pagination-buttons mt-3 d-flex justify-content-center fs-small">
       <button @click="prevPage" :disabled="currentPage === 1">戻る</button>
-      <span class="px-3">{{ currentPage }} / {{ totalPages }}</span>
+      <span class="px-3 py-2">{{ currentPage }} / {{ totalPages }}</span>
       <button @click="nextPage" :disabled="currentPage === totalPages">
         次へ
       </button>
@@ -144,5 +144,8 @@ export default {
 }
 .form-control::placeholder {
   font-size: 0.8em;
+}
+.pagination-buttons span {
+  font-size: 0.9em;
 }
 </style>
