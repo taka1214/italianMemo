@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-end w-100">
               <button
                 @click="navigate"
-                class="my-2 px-3 border rounded-lg bg-white fs-small"
+                class="my-2 px-3 py-1 border rounded-lg bg-white fs-small"
               >
                 {{ buttonLabel }}
               </button>

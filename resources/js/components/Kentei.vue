@@ -2,7 +2,7 @@
   <div>
     <div class="bgColor">
       <p class="pt-2">イタリア語テスト</p>
-      <button @click="goToShuffle" class="mb-3 px-3 border rounded-4 text-gray-500 bg-white">シャッフル</button>
+      <button @click="goToShuffle" class="mb-3 px-3 py-1 border rounded-4 text-gray-500 bg-white">シャッフル</button>
       <div class="search-box mt-2">
         <input
           type="text"

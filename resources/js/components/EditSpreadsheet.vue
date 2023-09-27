@@ -1,55 +1,24 @@
 <template>
-  <div class="edit-spreadsheet">
-    <h2>modificare</h2>
-
-    <!-- Form to edit the spreadsheet data -->
-    <form @submit.prevent="updateSpreadsheetData" class="fs-smaller">
-      <!-- You can structure this form based on the columns of your spreadsheet. -->
-      <div class="mb-3 d-flex justify-content-center">
-        <textarea
-          v-model="this.japanese"
-          type="text"
-          required
-          class="form-control"
-          rows="3"
-          style="width: 90%"
-        ></textarea>
+  <div class="detail-spreadsheet my-4">
+    <h2>Dettaglio</h2>
+    <!-- Display the spreadsheet data -->
+    <div class="fs-smaller">
+      <div class="m-4 d-flex justify-content-center">
+        <p style="width: 90%">{{ japanese }}</p>
       </div>
 
-      <div class="mb-3 d-flex justify-content-center">
-        <textarea
-          v-model="this.italian"
-          type="text"
-          required
-          class="form-control"
-          rows="3"
-          style="width: 90%"
-        ></textarea>
+      <div class="m-4 d-flex justify-content-center">
+        <p style="width: 90%">{{ italian }}</p>
       </div>
 
-      <div class="mb-3 d-flex justify-content-center">
-        <textarea
-          v-model="this.answer"
-          type="text"
-          required
-          class="form-control"
-          rows="1"
-          style="width: 90%"
-        ></textarea>
+      <div class="mt-4 d-flex justify-content-center">
+        <p style="width: 90%">{{ answer }}</p>
       </div>
 
-      <div class="mb-3 d-flex justify-content-center">
-        <textarea
-          v-model="this.memo"
-          type="text"
-          required
-          class="form-control"
-          rows="1"
-          style="width: 90%"
-        ></textarea>
+      <div class="mb-4 d-flex justify-content-center">
+        <p style="width: 90%">{{ memo }}</p>
       </div>
-      <button type="submit" class="py-1 px-4 my-3 border rounded-3 border-1">更新</button>
-    </form>
+    </div>
     <button @click="back()" class="my-2">戻る</button>
   </div>
 </template>
@@ -90,10 +59,6 @@ export default {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    },
-
-    async updateSpreadsheetData() {
-      
     },
 
     back() {

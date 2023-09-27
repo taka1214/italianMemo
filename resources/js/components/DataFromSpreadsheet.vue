@@ -4,7 +4,7 @@
       <p class="pt-2">イタリア語テスト</p>
       <button
         @click="shuffleAndNavigate"
-        class="mb-4 px-3 border rounded-4 text-gray-500 bg-white"
+        class="mb-4 px-3 py-1 border rounded-4 text-gray-500 bg-white"
       >
         シャッフル
       </button>
